@@ -2,15 +2,14 @@ import styled from 'styled-components';
 import styles from '../styles/styles';
 import Card from './Card';
 import { dadosInicio } from './../data/dadosGerais';
-import CadastrarIcon from './../icons/HomeIcon';
-import HomeIcon from './../icons/CadastrarIcon';
+import { FaCity, FaRegListAlt } from 'react-icons/fa';
 
-const icons = [CadastrarIcon, HomeIcon];
+const icons = [FaCity, FaRegListAlt];
 
 const Home: React.FC = () => {
   return (
     <Wrapper>
-      <p>Início</p>
+      <h2>Dash</h2>
       <article className='cards-container'>
         {dadosInicio.map((item, index) => {
           const Icon = icons[index];
@@ -22,12 +21,11 @@ const Home: React.FC = () => {
 };
 
 const Wrapper = styled.main`
-  margin-left: 10.8rem;
-  margin-top: 9.7rem;
+  margin: 9.7rem 2rem 0 10.8rem;
 
-  p {
+  h2 {
     font-size: 2rem;
-    font-weight: 500;
+    margin-bottom: 2rem;
     color: ${styles.textColor};
   }
 

@@ -1,50 +1,47 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import styles from './../styles/styles';
 interface Props {
   item: string;
   Icon: React.FC;
 }
 
-const bull = (
-  <Box
-    component='span'
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
-
-const BasicCard: React.FC<Props> = ({ item, Icon }) => {
+const Card: React.FC<Props> = ({ item, Icon }) => {
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Icon />
-        <p style={{fontSize: '0.5rem'}}>{item}</p>
-      </CardContent>
-    </Card>
+    <Wrapper>
+      <p>{item}</p>
+      <span>&#x2192;</span>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  max-width: 20rem;
+  width: 100%;
+  border-radius: 0.2rem;
+  align-items: center;
+  gap: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26);
+  padding: 4rem 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  color: ${styles.textColor};
 
+  :active {
+    transform: translateY(2px);
+  }
 
-export default BasicCard;
-// interface Props {
-//   item: string;
-//   Icon: React.FC;
-// }
+  p {
+    text-align: center;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
 
-// const Card: React.FC<Props> = ({ item, Icon }) => {
-//   return (
-//     <>
-//       <span>{item}</span>
-//       <Icon />
-//     </>
-//   );
-// };
-// export default Card;
+  span {
+    font-size: 2rem;
+  }
+`;
+export default Card;

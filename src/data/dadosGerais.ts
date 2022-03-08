@@ -1,5 +1,5 @@
 
 
-const dadosInicio: string[] =  ['listar empresas', 'cadastras empresas']
+const dadosInicio: string[] =  ['list business', 'register business']
 
 export {dadosInicio}

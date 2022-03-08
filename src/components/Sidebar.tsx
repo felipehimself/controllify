@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-import HeaderIcon from '../icons/HeaderIcon';
-import HomeIcon from '../icons/HomeIcon';
-import CadastrarIcon from '../icons/CadastrarIcon';
-
+import { FaHome, FaCity, FaRegListAlt } from 'react-icons/fa';
 const Sidebar = () => {
   return (
     <Wrapper>
-      <HeaderIcon />
-      <HomeIcon />
-      <CadastrarIcon />
+      <FaHome style={{ color: '#fff' }} size={'2.2rem'} />
+      <FaCity style={{ color: '#fff' }} size={'2.2rem'} />
+      <FaRegListAlt style={{ color: '#fff' }} size={'2.2rem'} />
     </Wrapper>
   );
 };

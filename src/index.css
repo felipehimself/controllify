@@ -19,3 +19,7 @@ html {
   font-size: 62.5%;
   font-family: 'Roboto', sans-serif;
 }
+
+body {
+  background-color: #F3F2F1;
+}
