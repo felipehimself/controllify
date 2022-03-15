@@ -2,9 +2,6 @@ import styled from 'styled-components';
 import styles from '../styles/styles';
 import Card from './Card';
 import { dadosInicio } from './../data/dadosGerais';
-import { FaCity, FaRegListAlt } from 'react-icons/fa';
-
-const icons = [FaCity, FaRegListAlt];
 
 const Home: React.FC = () => {
   return (
@@ -12,8 +9,7 @@ const Home: React.FC = () => {
       <h2>Dash</h2>
       <article className='cards-container'>
         {dadosInicio.map((item, index) => {
-          const Icon = icons[index];
-          return <Card key={index} item={item} Icon={Icon} />;
+          return <Card key={index} {...item} />
         })}
       </article>
     </Wrapper>
