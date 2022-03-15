@@ -31,16 +31,17 @@ const Wrapper = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 1.5rem 1rem;
-
-  .title-container__title {
-    font-weight: normal;
-    font-size: 1.5rem;
-  }
-
+  height: 5.6rem;
+  
   .head-container {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
+  .title-container__title {
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+
 `;
 export default TableTitle;

@@ -2,18 +2,12 @@ import styled from 'styled-components';
 import TableTitle from './TableTitle';
 import styles from '../styles/styles';
 import { ufData } from '../data/dadosGerais';
+import { useLocation } from 'react-router-dom';
 
-// TODO
-// CRIAR COMPONENTE EDITAR
-// NEXT... COMEÇAR A PENSAR NO REDUCER
-// NEXT... COMEÇAR A PENSAR NO FIREBASE
-// LEMBRETE: EDIT TERÁ UM USE EFFECT QUE RENDERIZARÁ CONFORME O ID, LOGO... CADA LINHA NA TABELA PRECISA DE UM ID
-
-const Cadastrar: React.FC = () => {
-  
+const Editar = () => {
   return (
     <Wrapper>
-      <TableTitle button={true} path={ 'Cadastrar'} />
+      <TableTitle button={true} path={'Empresas / Editar'} />
       <form>
         <label htmlFor='doc'>Tipo de Documento</label>
         <div className='form-control-dados'>
@@ -55,8 +49,8 @@ const Cadastrar: React.FC = () => {
         </div>
       </form>
     </Wrapper>
-  );
-};
+  )
+}
 
 const Wrapper = styled.main`
   margin: 9.7rem 4rem 0 10.8rem;
@@ -124,4 +118,5 @@ const Wrapper = styled.main`
     color: ${styles.textColor};
   }
 `;
-export default Cadastrar;
+
+export default Editar

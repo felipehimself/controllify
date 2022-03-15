@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import mock from '../mock';
 import styles from '../styles/styles';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
 import TableTitle from './TableTitle';
 
@@ -23,16 +23,19 @@ const Empresas: React.FC = () => {
         </thead>
         <tbody>
           {mock.map((item) => {
+            const { id, nome, cnpj, cidade, uf, cep, abertura } = item;
             return (
-              <tr>
-                <td>{item.nome}</td>
-                <td>{item.cnpj}</td>
-                <td>{item.cidade}</td>
-                <td>{item.uf}</td>
-                <td>{item.zip}</td>
-                <td>{item.release}</td>
+              <tr key={id}>
+                <td>{nome}</td>
+                <td>{cnpj}</td>
+                <td>{cidade}</td>
+                <td>{uf}</td>
+                <td>{cep}</td>
+                <td>{abertura}</td>
                 <td>
-                  <FaEdit style={{ color: '#1b1d29' }} />
+                  <Link to={`/empresas/editar/${id}`}>
+                    <FaEdit style={{ color: '#1b1d29' }} />
+                  </Link>
                 </td>
               </tr>
             );
@@ -71,6 +74,10 @@ const Wrapper = styled.main`
   }
   tr:nth-child(even) {
     background-color: #fff;
+  }
+
+  td:last-child {
+    cursor: pointer;
   }
 `;
 
