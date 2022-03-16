@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import { FaChevronLeft } from 'react-icons/fa';
 import styled from 'styled-components';
 import styles from '../styles/styles';
 import Button from './ButtonSalvar';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   path?: string;
@@ -10,12 +10,16 @@ interface IProps {
 }
 
 const TableTitle: React.FC<IProps> = ({ path, button }) => {
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <div className='head-container'>
-        <Link to='/'>
-          <FaChevronLeft size={12} style={{ color: '#fff' }} />
-        </Link>
+        <FaChevronLeft
+          onClick={() => navigate(-1)}
+          size={12}
+          style={{ color: '#fff', cursor: 'pointer' }}
+        />
         <h2 className='title-container__title'>{path}</h2>
       </div>
       {button && <Button />}
@@ -32,16 +36,17 @@ const Wrapper = styled.div`
   gap: 1rem;
   padding: 1.5rem 1rem;
   height: 5.6rem;
-  
+
   .head-container {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-left: 1rem;
   }
+
   .title-container__title {
     font-weight: normal;
     font-size: 1.5rem;
   }
-
 `;
 export default TableTitle;

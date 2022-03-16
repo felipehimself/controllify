@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import styles from '../styles/styles';
 const ButtonSalvar = () => {
   return <Wrapper>SALVAR</Wrapper>;
 };

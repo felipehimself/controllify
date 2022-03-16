@@ -1,16 +1,20 @@
 export interface IUserData {
+  cnpj: string;
+  cidade: string;
+  uf: string;
+  cep: string;
+  abertura: string;
   id: string;
-  status: boolean;
-  name: string;
-  tin: string;
-  city: string;
-  zip: string;
-  registeredAt: Date;
-  img: string;
-  address: string;
+  rua: string;
+  numero: number;
+  complemento: string;
+  bairro: string;
+  tipoDeDoc: string;
+  razaoSocialOuNome: string;
+  email: string;
 }
 
 export interface IUF {
-  uf: string,
-  estado: string,
+  uf: string;
+  estado: string;
 }

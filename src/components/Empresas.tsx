@@ -4,8 +4,12 @@ import styles from '../styles/styles';
 import { Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
 import TableTitle from './TableTitle';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 const Empresas: React.FC = () => {
+  const { dados } = useSelector((state: RootState) => state.dados);
+
   return (
     <Wrapper>
       <TableTitle path={'Empresas'} />
@@ -22,11 +26,12 @@ const Empresas: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {mock.map((item) => {
-            const { id, nome, cnpj, cidade, uf, cep, abertura } = item;
+          {dados.map((item) => {
+            const { id, razaoSocialOuNome, cnpj, cidade, uf, cep, abertura } =
+              item;
             return (
               <tr key={id}>
-                <td>{nome}</td>
+                <td>{razaoSocialOuNome}</td>
                 <td>{cnpj}</td>
                 <td>{cidade}</td>
                 <td>{uf}</td>

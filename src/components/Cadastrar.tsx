@@ -10,10 +10,9 @@ import { ufData } from '../data/dadosGerais';
 // LEMBRETE: EDIT TERÁ UM USE EFFECT QUE RENDERIZARÁ CONFORME O ID, LOGO... CADA LINHA NA TABELA PRECISA DE UM ID
 
 const Cadastrar: React.FC = () => {
-  
   return (
     <Wrapper>
-      <TableTitle button={true} path={ 'Cadastrar'} />
+      <TableTitle button={true} path={'Cadastrar'} />
       <form>
         <label htmlFor='doc'>Tipo de Documento</label>
         <div className='form-control-dados'>
@@ -48,7 +47,11 @@ const Cadastrar: React.FC = () => {
               .sort((a, b) => (a.uf > b.uf ? 1 : -1))
               .map((item) => {
                 const { uf } = item;
-                return <option value={uf}>{uf}</option>;
+                return (
+                  <option key={uf} value={uf}>
+                    {uf}
+                  </option>
+                );
               })}
           </select>
           <input type='text' placeholder='Cidade' className='cidade' />

@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import TableTitle from './TableTitle';
 import styles from '../styles/styles';
 import { ufData } from '../data/dadosGerais';
-import { useLocation } from 'react-router-dom';
 
 const Editar = () => {
   return (
