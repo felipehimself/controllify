@@ -1,7 +1,8 @@
 import { FaChevronLeft } from 'react-icons/fa';
 import styled from 'styled-components';
 import styles from '../styles/styles';
-import Button from './ButtonSalvar';
+import ButtonSalvar from './ButtonSalvar';
+import ButtonEditar from './ButtonEditar';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {
@@ -22,7 +23,12 @@ const TableTitle: React.FC<IProps> = ({ path, button }) => {
         />
         <h2 className='title-container__title'>{path}</h2>
       </div>
-      {button && <Button />}
+      {button && (
+        <div className='btn-container'>
+          <ButtonEditar />
+          <ButtonSalvar />
+        </div>
+      )}
     </Wrapper>
   );
 };
@@ -47,6 +53,11 @@ const Wrapper = styled.div`
   .title-container__title {
     font-weight: normal;
     font-size: 1.5rem;
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 2rem;
   }
 `;
 export default TableTitle;

@@ -11,9 +11,11 @@ import { IUserData } from '../interfaces/interfaces';
 const Editar = () => {
   const [empresa, setEmpressa] = useState<IUserData | null>();
   const [editar, setEditar] = useState<IUserData | any>({});
+
   const { id } = useParams();
   const { dados } = useSelector((state: RootState) => state.dados);
-  // incluir estado para habiltiar ou desabilitar os campos, com botao na parte superior
+  const { isDisable } = useSelector((state: RootState) => state.buttonState);
+  
   useEffect(() => {
     const unicaEmpresa = dados.find((i) => i.id === id);
     setEmpressa(unicaEmpresa);
@@ -24,7 +26,7 @@ const Editar = () => {
     const value = e.target.value;
     console.log(e.target.value);
 
-    setEditar((prev:any) => {
+    setEditar((prev: any) => {
       return { ...prev, [name]: value };
     });
   };
@@ -49,30 +51,67 @@ const Editar = () => {
             placeholder='Documento'
             onChange={handleChange}
             name='cnpjOuCpf'
+            disabled={isDisable}
           />
           <input
             className='nome-razao-social'
             type='text'
             placeholder='Nome Completo / Razão Social'
             defaultValue={empresa?.razaoSocialOuNome || ''}
+            // disabled={buttonState}
           />
-          <input defaultValue={empresa?.email || ''} type='email' placeholder='E-mail' />
-          <input defaultValue={empresa?.abertura || ''} type='date' placeholder='Data cadastro' />
+          <input
+            defaultValue={empresa?.email || ''}
+            type='email'
+            placeholder='E-mail'
+            // disabled={buttonState}
+          />
+          <input
+            defaultValue={empresa?.abertura || ''}
+            type='date'
+            placeholder='Data cadastro'
+            // disabled={buttonState}
+          />
         </div>
 
         <label htmlFor='doc'>Endereço</label>
 
         <div className='form-control-endereco'>
-          <input defaultValue={empresa?.cep || ''} type='text' placeholder='CEP' className='cep' />
-          <input defaultValue={empresa?.rua  || ''} type='text' placeholder='Endereço' className='endereco' />
-          <input defaultValue={empresa?.numero || ''} type='text' placeholder='Número' className='numero' />
+          <input
+            defaultValue={empresa?.cep || ''}
+            type='text'
+            placeholder='CEP'
+            className='cep'
+            // disabled={buttonState}
+          />
+          <input
+            defaultValue={empresa?.rua || ''}
+            type='text'
+            placeholder='Endereço'
+            className='endereco'
+            // disabled={buttonState}
+          />
+          <input
+            defaultValue={empresa?.numero || ''}
+            type='text'
+            placeholder='Número'
+            className='numero'
+            // disabled={buttonState}
+          />
           <input
             type='text'
             placeholder='Complemento'
             className='complemento'
             defaultValue={empresa?.complemento || ''}
+            // disabled={buttonState}
           />
-          <input defaultValue={empresa?.bairro || ''} type='text' placeholder='Bairro' className='bairro' />
+          <input
+            defaultValue={empresa?.bairro || ''}
+            type='text'
+            placeholder='Bairro'
+            className='bairro'
+            // disabled={buttonState}
+          />
           <select name='uf' id='uf'>
             {ufData
               .sort((a, b) => (a.uf > b.uf ? 1 : -1))
@@ -85,7 +124,13 @@ const Editar = () => {
                 );
               })}
           </select>
-          <input defaultValue={empresa?.cidade || ''} type='text' placeholder='Cidade' className='cidade' />
+          <input
+            defaultValue={empresa?.cidade || ''}
+            type='text'
+            placeholder='Cidade'
+            className='cidade'
+            // disabled={buttonState}
+          />
         </div>
       </form>
     </Wrapper>
