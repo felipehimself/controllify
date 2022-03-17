@@ -1,5 +1,5 @@
 export interface IUserData {
-  cnpj: string;
+  cnpjOuCpf: string;
   cidade: string;
   uf: string;
   cep: string;

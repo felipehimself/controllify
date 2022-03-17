@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import mock from '../mock';
 import styles from '../styles/styles';
 import { Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
@@ -27,12 +26,12 @@ const Empresas: React.FC = () => {
         </thead>
         <tbody>
           {dados.map((item) => {
-            const { id, razaoSocialOuNome, cnpj, cidade, uf, cep, abertura } =
+            const { id, razaoSocialOuNome, cnpjOuCpf, cidade, uf, cep, abertura } =
               item;
             return (
               <tr key={id}>
                 <td>{razaoSocialOuNome}</td>
-                <td>{cnpj}</td>
+                <td>{cnpjOuCpf}</td>
                 <td>{cidade}</td>
                 <td>{uf}</td>
                 <td>{cep}</td>

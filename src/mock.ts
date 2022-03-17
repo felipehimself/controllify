@@ -7,7 +7,23 @@ const generateId = () => {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
+    cidade: 'rio de janeiro',
+    uf: 'rj',
+    cep: '25515-090',
+    abertura: '2021-02-05',
+    id: generateId(),
+    rua: 'Rua Qualquer',
+    numero: 10,
+    complemento: 'perto de',
+    bairro: 'sjm',
+    tipoDeDoc: 'cpf',
+    razaoSocialOuNome: 'ola saoooo',
+    email:'teste@teste.com',
+
+  },
+  {
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -23,7 +39,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -39,7 +55,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -55,7 +71,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -71,7 +87,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -87,7 +103,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -103,7 +119,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -119,7 +135,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -135,7 +151,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -151,7 +167,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
@@ -167,23 +183,7 @@ export default [
 
   },
   {
-    cnpj: '20.001.001/0001/22',
-    cidade: 'rio de janeiro',
-    uf: 'rj',
-    cep: '25515-090',
-    abertura: '02/01/2021',
-    id: generateId(),
-    rua: 'Rua Qualquer',
-    numero: 10,
-    complemento: 'perto de',
-    bairro: 'sjm',
-    tipoDeDoc: 'cpf',
-    razaoSocialOuNome: 'ola sa',
-    email:'teste@teste.com',
-
-  },
-  {
-    cnpj: '20.001.001/0001/22',
+    cnpjOuCpf: '20.001.001/0001/22',
     cidade: 'rio de janeiro',
     uf: 'rj',
     cep: '25515-090',
