@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeState } from '../features/buttonsSlice';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import TableTitle from './TableTitle';
@@ -10,23 +11,23 @@ import { IUserData } from '../interfaces/interfaces';
 
 const Editar = () => {
   const [empresa, setEmpressa] = useState<IUserData | null>();
-  const [editar, setEditar] = useState<IUserData | any>({});
-
+  const [editar, setEditar] = useState<IUserData | unknown>({});
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { dados } = useSelector((state: RootState) => state.dados);
   const { isDisable } = useSelector((state: RootState) => state.buttonState);
-  
+
   useEffect(() => {
+    dispatch(changeState(true));
     const unicaEmpresa = dados.find((i) => i.id === id);
     setEmpressa(unicaEmpresa);
-  }, [id, dados]);
+  }, [id, dados, dispatch]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
     console.log(e.target.value);
 
-    setEditar((prev: any) => {
+    setEditar((prev: IUserData) => {
       return { ...prev, [name]: value };
     });
   };
@@ -37,13 +38,14 @@ const Editar = () => {
       <form>
         <label htmlFor='doc'>Tipo de Documento</label>
         <div className='form-control-dados'>
-          <select name='doc' id='doc'>
-            {/* <option selected={empresa?.tipoDeDoc === 'cpf'} value='cpf'>
-              CPF
-            </option>
-            <option selected={empresa?.tipoDeDoc === 'cnpj'} value='cnpj'>
-              CNPJ
-            </option> */}
+          <select
+            value={empresa?.tipoDeDoc}
+            name='doc'
+            id='doc'
+            disabled={isDisable}
+          >
+            <option value='cpf'>CPF</option>
+            <option value='cnpj'>CNPJ</option>
           </select>
           <input
             defaultValue={empresa?.cnpjOuCpf || ''}
@@ -58,19 +60,19 @@ const Editar = () => {
             type='text'
             placeholder='Nome Completo / Razão Social'
             defaultValue={empresa?.razaoSocialOuNome || ''}
-            // disabled={buttonState}
+            disabled={isDisable}
           />
           <input
             defaultValue={empresa?.email || ''}
             type='email'
             placeholder='E-mail'
-            // disabled={buttonState}
+            disabled={isDisable}
           />
           <input
             defaultValue={empresa?.abertura || ''}
             type='date'
             placeholder='Data cadastro'
-            // disabled={buttonState}
+            disabled={isDisable}
           />
         </div>
 
@@ -82,41 +84,41 @@ const Editar = () => {
             type='text'
             placeholder='CEP'
             className='cep'
-            // disabled={buttonState}
+            disabled={isDisable}
           />
           <input
             defaultValue={empresa?.rua || ''}
             type='text'
             placeholder='Endereço'
             className='endereco'
-            // disabled={buttonState}
+            disabled={isDisable}
           />
           <input
             defaultValue={empresa?.numero || ''}
             type='text'
             placeholder='Número'
             className='numero'
-            // disabled={buttonState}
+            disabled={isDisable}
           />
           <input
             type='text'
             placeholder='Complemento'
             className='complemento'
             defaultValue={empresa?.complemento || ''}
-            // disabled={buttonState}
+            disabled={isDisable}
           />
           <input
             defaultValue={empresa?.bairro || ''}
             type='text'
             placeholder='Bairro'
             className='bairro'
-            // disabled={buttonState}
+            disabled={isDisable}
           />
-          <select name='uf' id='uf'>
+          <select value={empresa?.uf} name='uf' id='uf' disabled={isDisable}>
             {ufData
-              .sort((a, b) => (a.uf > b.uf ? 1 : -1))
-              .map((item) => {
-                const { uf } = item;
+              .sort((item) => (item.uf.toLowerCase() === empresa?.uf ? -1 : 1))
+              .map((i) => {
+                const { uf } = i;
                 return (
                   <option key={uf} value={uf}>
                     {uf}
@@ -129,7 +131,7 @@ const Editar = () => {
             type='text'
             placeholder='Cidade'
             className='cidade'
-            // disabled={buttonState}
+            disabled={isDisable}
           />
         </div>
       </form>
