@@ -1,48 +1,91 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeState } from '../features/buttonsSlice';
+import { updateData } from '../features/dataSlicer';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import TableTitle from './TableTitle';
 import styles from '../styles/styles';
 import { ufData } from '../data/dadosGerais';
 import { RootState } from '../store/store';
 import { IUserData } from '../interfaces/interfaces';
+import { FaChevronLeft } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
+// COMO PEGAR VALOR DO SELECT?
 
 const Editar = () => {
-  const [empresa, setEmpressa] = useState<IUserData | null>();
-  const [editar, setEditar] = useState<IUserData | unknown>({});
-  const dispatch = useDispatch();
+  const [empresa, setEmpresa] = useState<IUserData | any>({});
+
   const { id } = useParams();
   const { dados } = useSelector((state: RootState) => state.dados);
   const { isDisable } = useSelector((state: RootState) => state.buttonState);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(changeState(true));
-    const unicaEmpresa = dados.find((i) => i.id === id);
-    setEmpressa(unicaEmpresa);
+    const unicaEmpresa = dados.find((item) => item.id === id);
+    setEmpresa(unicaEmpresa);
   }, [id, dados, dispatch]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    console.log(e.target.value);
-
-    setEditar((prev: IUserData) => {
+    setEmpresa((prev: any) => {
       return { ...prev, [name]: value };
     });
   };
 
+
+  const handleSubmit = () => {
+    setEmpresa((prev:any)=>{
+      return {...prev}
+    })
+    if (Object.values(empresa).filter(Boolean).length === 13) {
+      dispatch(updateData({ id: empresa.id, data: empresa }));
+      setEmpresa({})
+      navigate('/empresas');
+    } else {
+      alert('errado');
+    }
+  };
+
   return (
     <Wrapper>
-      <TableTitle button={true} path={'Empresas / Editar'} />
+      <div className='title-container'>
+        <div className='head-container'>
+          <FaChevronLeft
+            onClick={() => navigate(-1)}
+            size={12}
+            style={{ color: '#fff', cursor: 'pointer' }}
+          />
+          <h2 className='title-container__title'>Empresas / Editar</h2>
+        </div>
+        <div className='btn-container'>
+          <button
+            className='btn-editar'
+            onClick={() => dispatch(changeState(false))}
+          >
+            EDITAR
+          </button>
+          <button onClick={handleSubmit} className='btn-salvar'>
+            SALVAR
+          </button>
+        </div>
+      </div>
       <form>
-        <label htmlFor='doc'>Tipo de Documento</label>
+        <label htmlFor='tipoDeDoc'>Dados Gerais</label>
         <div className='form-control-dados'>
           <select
             value={empresa?.tipoDeDoc}
-            name='doc'
+            name='tipoDeDoc'
             id='doc'
             disabled={isDisable}
+            onChange={handleChange}
           >
             <option value='cpf'>CPF</option>
             <option value='cnpj'>CNPJ</option>
@@ -61,18 +104,24 @@ const Editar = () => {
             placeholder='Nome Completo / Razão Social'
             defaultValue={empresa?.razaoSocialOuNome || ''}
             disabled={isDisable}
+            onChange={handleChange}
+            name='razaoSocialOuNome'
           />
           <input
             defaultValue={empresa?.email || ''}
             type='email'
             placeholder='E-mail'
             disabled={isDisable}
+            onChange={handleChange}
+            name='email'
           />
           <input
             defaultValue={empresa?.abertura || ''}
             type='date'
             placeholder='Data cadastro'
             disabled={isDisable}
+            onChange={handleChange}
+            name='abertura'
           />
         </div>
 
@@ -85,6 +134,8 @@ const Editar = () => {
             placeholder='CEP'
             className='cep'
             disabled={isDisable}
+            name='cep'
+            onChange={handleChange}
           />
           <input
             defaultValue={empresa?.rua || ''}
@@ -92,6 +143,8 @@ const Editar = () => {
             placeholder='Endereço'
             className='endereco'
             disabled={isDisable}
+            onChange={handleChange}
+            name='rua'
           />
           <input
             defaultValue={empresa?.numero || ''}
@@ -99,6 +152,8 @@ const Editar = () => {
             placeholder='Número'
             className='numero'
             disabled={isDisable}
+            onChange={handleChange}
+            name='numero'
           />
           <input
             type='text'
@@ -106,6 +161,8 @@ const Editar = () => {
             className='complemento'
             defaultValue={empresa?.complemento || ''}
             disabled={isDisable}
+            onChange={handleChange}
+            name='complemento'
           />
           <input
             defaultValue={empresa?.bairro || ''}
@@ -113,8 +170,16 @@ const Editar = () => {
             placeholder='Bairro'
             className='bairro'
             disabled={isDisable}
+            onChange={handleChange}
+            name='bairro'
           />
-          <select value={empresa?.uf} name='uf' id='uf' disabled={isDisable}>
+          <select
+            value={empresa?.uf}
+            name='uf'
+            id='uf'
+            disabled={isDisable}
+            onChange={handleChange}
+          >
             {ufData
               .sort((item) => (item.uf.toLowerCase() === empresa?.uf ? -1 : 1))
               .map((i) => {
@@ -132,6 +197,8 @@ const Editar = () => {
             placeholder='Cidade'
             className='cidade'
             disabled={isDisable}
+            onChange={handleChange}
+            name='cidade'
           />
         </div>
       </form>
@@ -143,6 +210,33 @@ const Wrapper = styled.main`
   margin: 9.7rem 4rem 0 10.8rem;
   background-color: #fff;
   box-shadow: ${styles.boxShadow};
+
+  .title-container {
+    background-color: ${styles.bgDefault};
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+    height: 5.6rem;
+  }
+  .head-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 1rem;
+  }
+
+  .title-container__title {
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 2rem;
+  }
 
   form {
     padding: 2rem 2rem 3rem 2rem;
@@ -203,6 +297,30 @@ const Wrapper = styled.main`
   select,
   input[type='date'] {
     color: ${styles.textColor};
+  }
+
+  .btn-salvar {
+    padding: 0.5rem 2rem;
+    color: #fff;
+    background-color: #303341;
+    border: none;
+    cursor: pointer;
+
+    :active {
+      transform: translateY(2px);
+    }
+  }
+
+  .btn-editar {
+    padding: 0.5rem 2rem;
+    color: #fff;
+    background-color: #303341;
+    border: none;
+    cursor: pointer;
+
+    :active {
+      transform: translateY(2px);
+    }
   }
 `;
 

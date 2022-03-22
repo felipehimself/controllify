@@ -1,49 +1,167 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import TableTitle from './TableTitle';
 import styles from '../styles/styles';
 import { ufData } from '../data/dadosGerais';
-
+import { IUserData } from '../interfaces/interfaces';
+import { FaChevronLeft } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { insertEmpresa } from '../features/dataSlicer';
+import { useDispatch } from 'react-redux';
+import { generateId } from '../utils/utils';
 // TODO
 // CONFIGURAR O EDITAR COM USEEFFECT PARA BUSCAR NO ESTADO DA STORE O CADASTRO DO PARAMETRO DO USEPARAMS
 // CRIAR COMPONENTE EDITAR
 // NEXT... COMEÇAR A PENSAR NO REDUCER
 // NEXT... COMEÇAR A PENSAR NO FIREBASE
 // LEMBRETE: EDIT TERÁ UM USE EFFECT QUE RENDERIZARÁ CONFORME O ID, LOGO... CADA LINHA NA TABELA PRECISA DE UM ID
+// validar CEP, CNPJ e CPF
+// COLOCAR MODAL DE ERRO CASO (NECESSARIO PREENCHER TODOS OS CAMPOS)
+// SE DER EDITAR E N MEXER EM NADA, MOSTRAR SUAS ALTERAÇOES SERAM PERDIDAS??
 
 const Cadastrar: React.FC = () => {
+  const [empresa, setEmpresa] = useState<IUserData | any>({});
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setEmpresa((prev: any) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleSubmit = () => {
+    if (Object.values(empresa).filter(Boolean).length === 12) {
+      setEmpresa((prev: any) => {
+        return { ...prev, id: generateId() };
+      });
+      dispatch(insertEmpresa(empresa));
+      setEmpresa({});
+      navigate('/empresas');
+    } else {
+      console.log(Object.values(empresa).filter(Boolean));
+
+      alert('errado');
+    }
+  };
+
+  console.log(empresa);
+
   return (
     <Wrapper>
-      <TableTitle button={true} path={'Cadastrar'} />
+      <div className='title-container'>
+        <div className='head-container'>
+          <FaChevronLeft
+            onClick={() => navigate(-1)}
+            size={12}
+            style={{ color: '#fff', cursor: 'pointer' }}
+          />
+          <h2 className='title-container__title'>Cadastrar</h2>
+        </div>
+        <div className='btn-container'>
+          <button onClick={handleSubmit} className='btn-salvar'>
+            SALVAR
+          </button>
+        </div>
+      </div>
       <form>
         <label htmlFor='doc'>Tipo de Documento</label>
         <div className='form-control-dados'>
-          <select name='doc' id='doc'>
+          <select
+            name='tipoDeDoc'
+            id='doc'
+            onChange={handleChange}
+            value={empresa?.tipoDeDoc ?? ''}
+          >
             <option value='cpf'>CPF</option>
             <option value='cnpj'>CNPJ</option>
           </select>
-          <input type='text' placeholder='Documento' />
           <input
+            name='cnpjOuCpf'
+            type='text'
+            placeholder='Documento'
+            onChange={handleChange}
+            value={empresa?.cnpjOuCpf ?? ''}
+          />
+          <input
+            name='razaoSocialOuNome'
             className='nome-razao-social'
             type='text'
             placeholder='Nome Completo / Razão Social'
+            onChange={handleChange}
+            value={empresa?.razaoSocialOuNome ?? ''}
           />
-          <input type='email' placeholder='E-mail' />
-          <input type='date' placeholder='Data cadastro' />
+          <input
+            type='email'
+            placeholder='E-mail'
+            onChange={handleChange}
+            name='email'
+            value={empresa?.email ?? ''}
+          />
+          <input
+            type='date'
+            placeholder='Data cadastro'
+            onChange={handleChange}
+            name='abertura'
+            value={empresa?.abertura ?? ''}
+          />
         </div>
 
         <label htmlFor='doc'>Endereço</label>
 
         <div className='form-control-endereco'>
-          <input type='text' placeholder='CEP' className='cep' />
-          <input type='text' placeholder='Endereço' className='endereco' />
-          <input type='text' placeholder='Número' className='numero' />
+          <input
+            type='text'
+            placeholder='CEP'
+            className='cep'
+            onChange={handleChange}
+            name='cep'
+            value={empresa?.cep ?? ''}
+          />
+          <input
+            type='text'
+            placeholder='Endereço'
+            className='endereco'
+            onChange={handleChange}
+            name='rua'
+            value={empresa?.rua ?? ''}
+          />
+          <input
+            type='text'
+            placeholder='Número'
+            className='numero'
+            onChange={handleChange}
+            name='numero'
+            value={empresa?.numero ?? ''}
+          />
           <input
             type='text'
             placeholder='Complemento'
             className='complemento'
+            onChange={handleChange}
+            name='complemento'
+            value={empresa?.complemento ?? ''}
           />
-          <input type='text' placeholder='Bairro' className='bairro' />
-          <select name='uf' id='uf'>
+          <input
+            type='text'
+            placeholder='Bairro'
+            className='bairro'
+            name='bairro'
+            onChange={handleChange}
+            value={empresa?.bairro ?? ''}
+          />
+          <select
+            name='uf'
+            id='uf'
+            onChange={handleChange}
+            value={empresa?.uf ?? ''}
+          >
             {ufData
               .sort((a, b) => (a.uf > b.uf ? 1 : -1))
               .map((item) => {
@@ -55,7 +173,14 @@ const Cadastrar: React.FC = () => {
                 );
               })}
           </select>
-          <input type='text' placeholder='Cidade' className='cidade' />
+          <input
+            type='text'
+            placeholder='Cidade'
+            className='cidade'
+            onChange={handleChange}
+            name='cidade'
+            value={empresa?.cidade ?? ''}
+          />
         </div>
       </form>
     </Wrapper>
@@ -126,6 +251,40 @@ const Wrapper = styled.main`
   select,
   input[type='date'] {
     color: ${styles.textColor};
+  }
+
+  .title-container {
+    background-color: ${styles.bgDefault};
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+    height: 5.6rem;
+  }
+  .head-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 1rem;
+  }
+
+  .title-container__title {
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+
+  .btn-salvar {
+    padding: 0.5rem 2rem;
+    color: #fff;
+    background-color: #303341;
+    border: none;
+    cursor: pointer;
+
+    :active {
+      transform: translateY(2px);
+    }
   }
 `;
 export default Cadastrar;

@@ -26,8 +26,15 @@ const Empresas: React.FC = () => {
         </thead>
         <tbody>
           {dados.map((item) => {
-            const { id, razaoSocialOuNome, cnpjOuCpf, cidade, uf, cep, abertura } =
-              item;
+            const {
+              id,
+              razaoSocialOuNome,
+              cnpjOuCpf,
+              cidade,
+              uf,
+              cep,
+              abertura,
+            } = item;
             return (
               <tr key={id}>
                 <td>{razaoSocialOuNome}</td>
@@ -35,7 +42,10 @@ const Empresas: React.FC = () => {
                 <td>{cidade}</td>
                 <td>{uf}</td>
                 <td>{cep}</td>
-                <td>{abertura}</td>
+                <td>{`${abertura.slice(-2)}/${abertura.slice(
+                  5,
+                  7
+                )}/${abertura.slice(0, 4)}`}</td>
                 <td>
                   <Link to={`/empresas/editar/${id}`}>
                     <FaEdit style={{ color: '#1b1d29' }} />

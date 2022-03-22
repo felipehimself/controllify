@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { changeState } from '../features/buttonsSlice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+
 const ButtonEditar = () => {
   const dispatch = useDispatch();
-  const { isDisable } = useSelector((state: RootState) => state.buttonState);
-  console.log(isDisable);
   return (
     <Wrapper onClick={() => dispatch(changeState(false))}>
       EDITAR

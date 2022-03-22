@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 // import styles from '../styles/styles';
-const ButtonSalvar = () => {
+
+const ButtonSalvar:React.FC = () => {
   return <Wrapper>SALVAR</Wrapper>;
 };
 

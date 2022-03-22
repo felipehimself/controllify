@@ -9,8 +9,23 @@ const dataSlice = createSlice({
   name: 'dataSlice',
   initialState: { dados: initialState },
   reducers: {
-    getData: (state) => {},
+    updateData: (state, action) => {
+      const newData = state.dados.map((item) => {
+        if (item.id === action.payload.id) {
+          return action.payload.data;
+        }
+        return item;
+      });
+
+      state.dados = newData;
+    },
+
+    insertEmpresa: (state, action)=>{
+      state.dados.push(action.payload)
+    }
   },
 });
 
-export default dataSlice.reducer
+export const { updateData, insertEmpresa } = dataSlice.actions;
+
+export default dataSlice.reducer;

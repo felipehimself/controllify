@@ -1,8 +1,4 @@
-const generateId = () => {
-  const head = Date.now().toString(36);
-  const tail = Math.random().toString(36).slice(2);
-  return head + tail;
-};
+import { generateId } from "./utils/utils";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
