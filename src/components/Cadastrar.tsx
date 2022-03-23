@@ -5,7 +5,7 @@ import { ufData } from '../data/dadosGerais';
 import { IUserData } from '../interfaces/interfaces';
 import { FaChevronLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { insertEmpresa } from '../features/dataSlicer';
+import { insertEmpresa } from '../features/dataSlice';
 import { useDispatch } from 'react-redux';
 import { generateId } from '../utils/utils';
 
@@ -14,6 +14,7 @@ import { generateId } from '../utils/utils';
 // validar CEP, CNPJ e CPF
 // COLOCAR MODAL DE ERRO CASO (NECESSARIO PREENCHER TODOS OS CAMPOS)
 // SE DER EDITAR E N MEXER EM NADA, MOSTRAR SUAS ALTERAÇOES SERAM PERDIDAS??
+// ADICIONAR DEFAULT NOS SELECT
 
 const Cadastrar: React.FC = () => {
   const [empresa, setEmpresa] = useState<IUserData | any>({});

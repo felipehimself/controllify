@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dataSlice from './../features/dataSlicer';
+import dataSlice from '../features/dataSlice';
 import buttonsSlice from '../features/buttonsSlice';
+import errorSlice from '../features/errorSlice';
+
 const store = configureStore({
   reducer: {
     dados: dataSlice,
     buttonState: buttonsSlice,
+    errorState: errorSlice,
   },
 });
 

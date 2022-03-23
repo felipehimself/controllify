@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { IUserData } from './../interfaces/interfaces';
+import { IUserData } from '../interfaces/interfaces';
 import mock from '../mock';
 
 const initialState: IUserData[] = mock;

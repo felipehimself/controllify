@@ -7,8 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import TableTitle from './TableTitle';
 import { useDispatch } from 'react-redux';
-import { removeEmpresa } from '../features/dataSlicer';
-
+import { removeEmpresa } from '../features/dataSlice';
 const TableEmpresas = () => {
   const { dados } = useSelector((state: RootState) => state.dados);
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ const TableEmpresas = () => {
   return (
     <Wrapper>
       <TableTitle path={'Empresas'} />
-
       <Table
         height={400}
         data={dados}

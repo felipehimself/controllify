@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeState } from '../features/buttonsSlice';
-import { updateData } from '../features/dataSlicer';
+import { updateData } from '../features/dataSlice';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import styles from '../styles/styles';
@@ -10,15 +10,15 @@ import { RootState } from '../store/store';
 import { IUserData } from '../interfaces/interfaces';
 import { FaChevronLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
-// COMO PEGAR VALOR DO SELECT?
-
+import ErrorMsg from './ErrorMsg';
+import { fireError } from '../features/errorSlice';
 const Editar = () => {
   const [empresa, setEmpresa] = useState<IUserData | any>({});
 
   const { id } = useParams();
   const { dados } = useSelector((state: RootState) => state.dados);
   const { isDisable } = useSelector((state: RootState) => state.buttonState);
+  const { value, msg } = useSelector((state: RootState) => state.errorState);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,22 +40,22 @@ const Editar = () => {
     });
   };
 
-
   const handleSubmit = () => {
-    setEmpresa((prev:any)=>{
-      return {...prev}
-    })
+    setEmpresa((prev: any) => {
+      return { ...prev };
+    });
     if (Object.values(empresa).filter(Boolean).length === 13) {
       dispatch(updateData({ id: empresa.id, data: empresa }));
-      setEmpresa({})
+      setEmpresa({});
       navigate('/empresas');
     } else {
-      alert('errado');
+      dispatch(fireError({value: true, msg:'Necessário preencher todos os campos'}))
     }
   };
 
   return (
     <Wrapper>
+      {value && <ErrorMsg msg={msg} />}
       <div className='title-container'>
         <div className='head-container'>
           <FaChevronLeft
@@ -317,6 +317,7 @@ const Wrapper = styled.main`
     background-color: #303341;
     border: none;
     cursor: pointer;
+    /* 303341 */
 
     :active {
       transform: translateY(2px);

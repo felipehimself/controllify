@@ -18,3 +18,9 @@ export interface IUF {
   uf: string;
   estado: string;
 }
+
+
+export interface IError {
+  value: boolean,
+  msg?: string | null | undefined
+}
