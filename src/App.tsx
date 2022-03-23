@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Home from './components/Home';
-import Empresas from './components/Empresas';
 import Cadastrar from './components/Cadastrar';
 import Editar from './components/Editar';
+import TabelaEmpresa from './components/TableEmpresas';
 const App: React.FC = () => {
   return (
     <div className='App'>
@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/empresas' element={<Empresas />} />
+          <Route path='/empresas' element={<TabelaEmpresa />} />
           <Route path='/cadastrar' element={<Cadastrar />} />
           <Route path='/empresas/editar/:id' element={<Editar />} />
         </Routes>

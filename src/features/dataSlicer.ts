@@ -22,10 +22,18 @@ const dataSlice = createSlice({
 
     insertEmpresa: (state, action)=>{
       state.dados.push(action.payload)
+    },
+
+    removeEmpresa: (state, action)=>{
+      state.dados.forEach((item, index)=>{
+        if (item.id === action.payload.id) {
+          state.dados.splice(index,1)
+        }
+      })
     }
   },
 });
 
-export const { updateData, insertEmpresa } = dataSlice.actions;
+export const { updateData, insertEmpresa, removeEmpresa } = dataSlice.actions;
 
 export default dataSlice.reducer;

@@ -8,12 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { insertEmpresa } from '../features/dataSlicer';
 import { useDispatch } from 'react-redux';
 import { generateId } from '../utils/utils';
+
 // TODO
-// CONFIGURAR O EDITAR COM USEEFFECT PARA BUSCAR NO ESTADO DA STORE O CADASTRO DO PARAMETRO DO USEPARAMS
-// CRIAR COMPONENTE EDITAR
-// NEXT... COMEÇAR A PENSAR NO REDUCER
 // NEXT... COMEÇAR A PENSAR NO FIREBASE
-// LEMBRETE: EDIT TERÁ UM USE EFFECT QUE RENDERIZARÁ CONFORME O ID, LOGO... CADA LINHA NA TABELA PRECISA DE UM ID
 // validar CEP, CNPJ e CPF
 // COLOCAR MODAL DE ERRO CASO (NECESSARIO PREENCHER TODOS OS CAMPOS)
 // SE DER EDITAR E N MEXER EM NADA, MOSTRAR SUAS ALTERAÇOES SERAM PERDIDAS??
@@ -45,13 +42,9 @@ const Cadastrar: React.FC = () => {
       setEmpresa({});
       navigate('/empresas');
     } else {
-      console.log(Object.values(empresa).filter(Boolean));
-
       alert('errado');
     }
   };
-
-  console.log(empresa);
 
   return (
     <Wrapper>
