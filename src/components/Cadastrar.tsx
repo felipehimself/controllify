@@ -11,6 +11,7 @@ import { RootState } from '../store/store';
 import { fireError } from '../features/errorSlice';
 import { generateId } from '../utils/utils';
 import ErrorMsg from './ErrorMsg';
+// import { Button, IconButton, ButtonGroup, ButtonToolbar } from 'rsuite';
 
 // TODO
 // NEXT... COMEÇAR A PENSAR NO FIREBASE
@@ -46,7 +47,9 @@ const Cadastrar: React.FC = () => {
       setEmpresa({});
       navigate('/empresas');
     } else {
-      dispatch(fireError({value: true, msg: 'Necessário preencher todos os campos'}))
+      dispatch(
+        fireError({ value: true, msg: 'Necessário preencher todos os campos' })
+      );
     }
   };
 

@@ -6,7 +6,7 @@ import { dadosInicio } from './../data/dadosGerais';
 const Home: React.FC = () => {
   return (
     <Wrapper>
-      <h2>Dash</h2>
+      <h2>Painel</h2>
       <article className='cards-container'>
         {dadosInicio.map((item, index) => {
           return <Card key={index} {...item} />
