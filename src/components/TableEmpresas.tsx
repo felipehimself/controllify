@@ -1,5 +1,10 @@
+import React from 'react';
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
+// import { Pagination } from 'rsuite';
+
 import 'rsuite-table/dist/css/rsuite-table.css';
+// import 'rsuite/dist/rsuite.min.css'
+// import 'rsuite-table/lib/less/index.less'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -11,10 +16,25 @@ import ConfirmMsg from './ConfirmMsg';
 
 import { fireConfirm } from '../features/confirmSlice';
 const TableEmpresas = () => {
+  // const [loading, setLoading] = React.useState(false);
+  // const [limit, setLimit] = React.useState(10);
+  // const [page, setPage] = React.useState(1);
+
   const { dados } = useSelector((state: RootState) => state.dados);
   const confirmState = useSelector((state: RootState) => state.confirmState);
 
   const dispatch = useDispatch();
+
+  // const handleChangeLimit = (dataKey: any) => {
+  //   setPage(1);
+  //   setLimit(dataKey);
+  // };
+
+  // const data = dados.filter((v, i) => {
+  //   const start = limit * (page - 1);
+  //   const end = start + limit;
+  //   return i >= start && i < end;
+  // });
 
   return (
     <Wrapper>
@@ -22,7 +42,7 @@ const TableEmpresas = () => {
       <TableTitle path={'Empresas'} />
       <Table height={400} data={dados} onRowClick={(data) => {}}>
         <Column width={200} fixed>
-          <HeaderCell>Empresa</HeaderCell>
+          <HeaderCell>EMPRESA</HeaderCell>
           <Cell dataKey='razaoSocialOuNome' />
         </Column>
         <Column width={180}>
@@ -30,7 +50,7 @@ const TableEmpresas = () => {
           <Cell dataKey='cnpjOuCpf' />
         </Column>
         <Column width={150}>
-          <HeaderCell>Cidade</HeaderCell>
+          <HeaderCell>CIDADE</HeaderCell>
           <Cell dataKey='cidade' />
         </Column>
         <Column width={80}>
@@ -42,11 +62,11 @@ const TableEmpresas = () => {
           <Cell dataKey='cep' />
         </Column>
         <Column width={200}>
-          <HeaderCell>Email</HeaderCell>
+          <HeaderCell>E-MAIL</HeaderCell>
           <Cell dataKey='email' />
         </Column>
         <Column width={160}>
-          <HeaderCell>Abertura</HeaderCell>
+          <HeaderCell>ABERTURA</HeaderCell>
           <Cell dataKey='abertura' />
         </Column>
         <Column width={120} fixed='right'>
@@ -82,6 +102,25 @@ const TableEmpresas = () => {
           </Cell>
         </Column>
       </Table>
+      {/* <div style={{ padding: 20 }}>
+        <Pagination
+          prev
+          next
+          first
+          last
+          ellipsis
+          boundaryLinks
+          maxButtons={5}
+          size='xs'
+          layout={['total', '-', 'limit', '|', 'pager', 'skip']}
+          total={dados.length}
+          limitOptions={[10, 20]}
+          limit={limit}
+          activePage={page}
+          onChangePage={setPage}
+          onChangeLimit={handleChangeLimit}
+        />
+      </div> */}
     </Wrapper>
   );
 };

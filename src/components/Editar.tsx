@@ -14,6 +14,7 @@ import ErrorMsg from './ErrorMsg';
 import { fireError } from '../features/errorSlice';
 const Editar = () => {
   const [empresa, setEmpresa] = useState<IUserData | any>({});
+  const [bkpEmpresa, setBkpEmpresa] = useState<IUserData | any>({});
 
   const { id } = useParams();
   const { dados } = useSelector((state: RootState) => state.dados);
@@ -27,6 +28,7 @@ const Editar = () => {
     dispatch(changeState(true));
     const unicaEmpresa = dados.find((item) => item.id === id);
     setEmpresa(unicaEmpresa);
+    setBkpEmpresa(unicaEmpresa);
   }, [id, dados, dispatch]);
 
   const handleChange = (
@@ -39,19 +41,24 @@ const Editar = () => {
       return { ...prev, [name]: value };
     });
   };
-  
+
   const handleSubmit = () => {
-    
     if (Object.values(empresa).filter(Boolean).length === 13) {
       console.log(Object.values(empresa).filter(Boolean));
-      
+
       dispatch(updateData({ id: empresa.id, data: empresa }));
       setEmpresa({});
       navigate('/empresas');
-      
     } else {
-      dispatch(fireError({value: true, msg:'Necessário preencher todos os campos'}))
+      dispatch(
+        fireError({ value: true, msg: 'Necessário preencher todos os campos' })
+      );
     }
+  };
+
+  const handleCancelar = () => {
+    setEmpresa(bkpEmpresa);
+    dispatch(changeState(true));
   };
 
   return (
@@ -67,13 +74,26 @@ const Editar = () => {
           <h2 className='title-container__title'>Empresas / Editar</h2>
         </div>
         <div className='btn-container'>
+          {!isDisable && (
+            <button
+              onClick={handleCancelar}
+              className='btn btn-cancelar'
+              disabled={isDisable}
+            >
+              CANCELAR
+            </button>
+          )}
           <button
-            className='btn-editar'
+            className={isDisable ? 'btn' : 'btn btn-not-allowed'}
             onClick={() => dispatch(changeState(false))}
           >
             EDITAR
           </button>
-          <button onClick={handleSubmit} className='btn-salvar'>
+          <button
+            onClick={handleSubmit}
+            className={isDisable ? 'btn btn-not-allowed' : 'btn'}
+            disabled={isDisable}
+          >
             SALVAR
           </button>
         </div>
@@ -300,28 +320,21 @@ const Wrapper = styled.main`
     color: ${styles.textColor};
   }
 
-  .btn-salvar {
+  .btn {
     padding: 0.5rem 2rem;
     color: #fff;
     background-color: #303341;
     border: none;
     cursor: pointer;
-
     :active {
       transform: translateY(2px);
     }
   }
 
-  .btn-editar {
-    padding: 0.5rem 2rem;
-    color: #fff;
-    background-color: #303341;
-    border: none;
-    cursor: pointer;
-    /* 303341 */
-
+  .btn-not-allowed {
+    cursor: not-allowed;
     :active {
-      transform: translateY(2px);
+      transform: translateY(0);
     }
   }
 `;
