@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 import { Pagination } from 'rsuite';
 
@@ -42,7 +42,7 @@ const TableEmpresas = () => {
     <Wrapper>
       {confirmState.value && <ConfirmMsg {...confirmState} />}
       <TableTitle path={'Empresas'} />
-      <Table height={400} data={data} onRowClick={(data) => {}} locale={{ emptyMessage: "Sem dados para exibir"}}
+      <Table height={400} loading={loading} data={data} onRowClick={(data) => {}} locale={{ emptyMessage: "Sem dados para exibir"}}
 >
         <Column width={200} fixed>
           <HeaderCell>EMPRESA</HeaderCell>
