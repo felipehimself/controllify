@@ -1,4 +1,3 @@
-import React from 'react';
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 import 'rsuite-table/dist/css/rsuite-table.css';
 import styled from 'styled-components';
@@ -7,25 +6,21 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import TableTitle from './TableTitle';
 import { useDispatch } from 'react-redux';
-import { removeEmpresa } from '../features/dataSlice';
+import styles from '../styles/styles';
+import ConfirmMsg from './ConfirmMsg';
+
+import { fireConfirm } from '../features/confirmSlice';
 const TableEmpresas = () => {
   const { dados } = useSelector((state: RootState) => state.dados);
+  const confirmState = useSelector((state: RootState) => state.confirmState);
+
   const dispatch = useDispatch();
 
   return (
     <Wrapper>
+      {confirmState.value && <ConfirmMsg {...confirmState} />}
       <TableTitle path={'Empresas'} />
-      <Table
-        height={400}
-        data={dados}
-        onRowClick={(data) => {
-          console.log(data);
-        }}
-      >
-        {/* <Column width={70} align="center" fixed>
-          <HeaderCell>Id</HeaderCell>
-          <Cell dataKey="id" />
-        </Column> */}
+      <Table height={400} data={dados} onRowClick={(data) => {}}>
         <Column width={200} fixed>
           <HeaderCell>Empresa</HeaderCell>
           <Cell dataKey='razaoSocialOuNome' />
@@ -62,11 +57,25 @@ const TableEmpresas = () => {
                 <div>
                   <Link
                     to={`/empresas/editar/${rowData.id}`}
-                    style={{ cursor: 'pointer' }}
+                    className='btn-edit'
                   >
                     Editar
                   </Link>
-                  | <button onClick={()=> dispatch(removeEmpresa({id: rowData.id}))}> Remover </button>
+                  <span className='bar-placeholder'>|</span>
+                  <button
+                    className='btn-remove'
+                    onClick={() =>
+                      dispatch(
+                        fireConfirm({
+                          value: true,
+                          msg: 'Deseja mesmo prosseguir?',
+                          id: rowData.id,
+                        })
+                      )
+                    }
+                  >
+                    Remover
+                  </button>
                 </div>
               );
             }}
@@ -81,18 +90,34 @@ const Wrapper = styled.div`
   margin: 9.7rem 5rem 0 10.8rem;
   font-size: 1.2rem;
 
-  a {
+  .btn-edit {
     color: #333;
     text-decoration: none;
-    margin-right: 0.5rem;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+    &:hover {
+      border-bottom: 1px solid ${styles.secondaryColor};
+    }
   }
 
-  button {
+  .btn-remove {
     border: none;
     background-color: transparent;
     font-size: 1.2rem;
     color: #333;
     cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-bottom: 1px solid ${styles.secondaryColor};
+    }
+  }
+
+  .bar-placeholder {
+    padding: 0 5px;
+    color: #333;
   }
 `;
 export default TableEmpresas;

@@ -6,13 +6,15 @@ import { IUserData } from '../interfaces/interfaces';
 import { FaChevronLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { insertEmpresa } from '../features/dataSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { fireError } from '../features/errorSlice';
 import { generateId } from '../utils/utils';
+import ErrorMsg from './ErrorMsg';
 
 // TODO
 // NEXT... COMEÇAR A PENSAR NO FIREBASE
 // validar CEP, CNPJ e CPF
-// COLOCAR MODAL DE ERRO CASO (NECESSARIO PREENCHER TODOS OS CAMPOS)
 // SE DER EDITAR E N MEXER EM NADA, MOSTRAR SUAS ALTERAÇOES SERAM PERDIDAS??
 // ADICIONAR DEFAULT NOS SELECT
 
@@ -22,6 +24,7 @@ const Cadastrar: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const errorState = useSelector((state: RootState) => state.errorState);
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -43,12 +46,13 @@ const Cadastrar: React.FC = () => {
       setEmpresa({});
       navigate('/empresas');
     } else {
-      alert('errado');
+      dispatch(fireError({value: true, msg: 'Necessário preencher todos os campos'}))
     }
   };
 
   return (
     <Wrapper>
+      {errorState.value && <ErrorMsg {...errorState} />}
       <div className='title-container'>
         <div className='head-container'>
           <FaChevronLeft

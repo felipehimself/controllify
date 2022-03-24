@@ -19,8 +19,13 @@ export interface IUF {
   estado: string;
 }
 
-
 export interface IError {
-  value: boolean,
-  msg?: string | null | undefined
+  value: boolean;
+  msg: string | null | undefined;
+}
+
+export interface IConfirm {
+  value: boolean;
+  msg: string | null | undefined;
+  id: string;
 }

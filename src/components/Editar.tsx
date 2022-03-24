@@ -18,7 +18,7 @@ const Editar = () => {
   const { id } = useParams();
   const { dados } = useSelector((state: RootState) => state.dados);
   const { isDisable } = useSelector((state: RootState) => state.buttonState);
-  const { value, msg } = useSelector((state: RootState) => state.errorState);
+  const errorState = useSelector((state: RootState) => state.errorState);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,15 +39,16 @@ const Editar = () => {
       return { ...prev, [name]: value };
     });
   };
-
+  
   const handleSubmit = () => {
-    setEmpresa((prev: any) => {
-      return { ...prev };
-    });
+    
     if (Object.values(empresa).filter(Boolean).length === 13) {
+      console.log(Object.values(empresa).filter(Boolean));
+      
       dispatch(updateData({ id: empresa.id, data: empresa }));
       setEmpresa({});
       navigate('/empresas');
+      
     } else {
       dispatch(fireError({value: true, msg:'Necessário preencher todos os campos'}))
     }
@@ -55,7 +56,7 @@ const Editar = () => {
 
   return (
     <Wrapper>
-      {value && <ErrorMsg msg={msg} />}
+      {errorState.value && <ErrorMsg {...errorState} />}
       <div className='title-container'>
         <div className='head-container'>
           <FaChevronLeft
@@ -91,7 +92,7 @@ const Editar = () => {
             <option value='cnpj'>CNPJ</option>
           </select>
           <input
-            defaultValue={empresa?.cnpjOuCpf || ''}
+            value={empresa?.cnpjOuCpf || ''}
             type='text'
             placeholder='Documento'
             onChange={handleChange}
@@ -102,13 +103,13 @@ const Editar = () => {
             className='nome-razao-social'
             type='text'
             placeholder='Nome Completo / Razão Social'
-            defaultValue={empresa?.razaoSocialOuNome || ''}
+            value={empresa?.razaoSocialOuNome || ''}
             disabled={isDisable}
             onChange={handleChange}
             name='razaoSocialOuNome'
           />
           <input
-            defaultValue={empresa?.email || ''}
+            value={empresa?.email || ''}
             type='email'
             placeholder='E-mail'
             disabled={isDisable}
@@ -116,7 +117,7 @@ const Editar = () => {
             name='email'
           />
           <input
-            defaultValue={empresa?.abertura || ''}
+            value={empresa?.abertura || ''}
             type='date'
             placeholder='Data cadastro'
             disabled={isDisable}
@@ -129,7 +130,7 @@ const Editar = () => {
 
         <div className='form-control-endereco'>
           <input
-            defaultValue={empresa?.cep || ''}
+            value={empresa?.cep || ''}
             type='text'
             placeholder='CEP'
             className='cep'
@@ -138,7 +139,7 @@ const Editar = () => {
             onChange={handleChange}
           />
           <input
-            defaultValue={empresa?.rua || ''}
+            value={empresa?.rua || ''}
             type='text'
             placeholder='Endereço'
             className='endereco'
@@ -147,7 +148,7 @@ const Editar = () => {
             name='rua'
           />
           <input
-            defaultValue={empresa?.numero || ''}
+            value={empresa?.numero || ''}
             type='text'
             placeholder='Número'
             className='numero'
@@ -159,13 +160,13 @@ const Editar = () => {
             type='text'
             placeholder='Complemento'
             className='complemento'
-            defaultValue={empresa?.complemento || ''}
+            value={empresa?.complemento || ''}
             disabled={isDisable}
             onChange={handleChange}
             name='complemento'
           />
           <input
-            defaultValue={empresa?.bairro || ''}
+            value={empresa?.bairro || ''}
             type='text'
             placeholder='Bairro'
             className='bairro'
@@ -192,7 +193,7 @@ const Editar = () => {
               })}
           </select>
           <input
-            defaultValue={empresa?.cidade || ''}
+            value={empresa?.cidade || ''}
             type='text'
             placeholder='Cidade'
             className='cidade'
