@@ -15,12 +15,17 @@ const Card: React.FC<IData> = ({ name, path }) => {
 };
 
 const Wrapper = styled.div`
-  max-width: 20rem;
-  width: 100%;
+  min-width: 20rem;
+  /* width: 100%; */
   border-radius: 0.4rem;
   background-color: #ffffff;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26);
   cursor: pointer;
+
+  @media only screen and (max-width: 575px) {
+    flex-grow: 1;
+    margin-right: 2rem;
+  }
 
   :active {
     transform: translateY(2px);

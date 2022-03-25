@@ -85,7 +85,7 @@ const Wrapper = styled.nav`
     border-radius: 3px;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     width: 0;
   }
 

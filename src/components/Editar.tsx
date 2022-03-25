@@ -107,6 +107,7 @@ const Editar = () => {
             id='doc'
             disabled={isDisable}
             onChange={handleChange}
+            className='doc-select'
           >
             <option value='cpf'>CPF</option>
             <option value='cnpj'>CNPJ</option>
@@ -114,10 +115,11 @@ const Editar = () => {
           <input
             value={empresa?.cnpjOuCpf || ''}
             type='text'
-            placeholder='Documento'
+            placeholder='Nº documento'
             onChange={handleChange}
             name='cnpjOuCpf'
             disabled={isDisable}
+            className='doc-input'
           />
           <input
             className='nome-razao-social'
@@ -135,6 +137,7 @@ const Editar = () => {
             disabled={isDisable}
             onChange={handleChange}
             name='email'
+            className='email-input'
           />
           <input
             value={empresa?.abertura || ''}
@@ -143,9 +146,9 @@ const Editar = () => {
             disabled={isDisable}
             onChange={handleChange}
             name='abertura'
+            className='data-input'
           />
         </div>
-
         <label htmlFor='doc'>Endereço</label>
 
         <div className='form-control-endereco'>
@@ -194,6 +197,15 @@ const Editar = () => {
             onChange={handleChange}
             name='bairro'
           />
+          <input
+            value={empresa?.cidade || ''}
+            type='text'
+            placeholder='Cidade'
+            className='cidade'
+            disabled={isDisable}
+            onChange={handleChange}
+            name='cidade'
+          />
           <select
             value={empresa?.uf}
             name='uf'
@@ -212,15 +224,7 @@ const Editar = () => {
                 );
               })}
           </select>
-          <input
-            value={empresa?.cidade || ''}
-            type='text'
-            placeholder='Cidade'
-            className='cidade'
-            disabled={isDisable}
-            onChange={handleChange}
-            name='cidade'
-          />
+          
         </div>
       </form>
     </Wrapper>
@@ -287,6 +291,7 @@ const Wrapper = styled.main`
   .form-control-dados {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 2rem;
     padding: 0.5rem 2rem 3rem 2rem;
   }
@@ -297,7 +302,7 @@ const Wrapper = styled.main`
 
   .form-control-endereco {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     padding: 0.5rem 2rem 3rem 2rem;
   }
@@ -307,7 +312,7 @@ const Wrapper = styled.main`
   }
 
   .endereco {
-    grid-column: 3 /6;
+    grid-column: 3 /5;
   }
 
   input[type='date']::-webkit-calendar-picker-indicator {
@@ -335,6 +340,42 @@ const Wrapper = styled.main`
     cursor: not-allowed;
     :active {
       transform: translateY(0);
+    }
+  }
+
+  @media only screen and (max-width: 1115px) {
+    .nome-razao-social {
+      grid-column: 3 / 4;
+    }
+  }
+
+  @media only screen and (max-width: 956px) {
+    .form-control-dados {
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .nome-razao-social {
+      grid-column: 1 / 5;
+    }
+
+    .doc-select {
+      grid-row: 2 / 3;
+      grid-column: 1 / 3;
+    }
+
+    .doc-input {
+      grid-row: 2 / 3;
+      grid-column: 3 / 5;
+    }
+
+    .email-input {
+      grid-row: 3 / 4;
+      grid-column: 1 / 3;
+    }
+
+    .data-input {
+      grid-row: 3 / 4;
+      grid-column: 3 / 5;
     }
   }
 `;

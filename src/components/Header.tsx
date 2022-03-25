@@ -19,7 +19,6 @@ const Wrapper = styled.header`
   top: 0;
   width: 100%;
   gap: 0.5rem;
-  /* margin-left: 6.4rem; */
   background-color: #ffffff;
   text-align: center;
   box-shadow: ${styles.boxShadow};
@@ -29,6 +28,8 @@ const Wrapper = styled.header`
     color: ${styles.textColor};
     letter-spacing: 2px;
     font-size: 2rem;
+    font-weight: bold;
+    margin-left: 6.4rem;
   }
 `;
 

@@ -9,7 +9,7 @@ const Home: React.FC = () => {
       <h2>Painel</h2>
       <article className='cards-container'>
         {dadosInicio.map((item, index) => {
-          return <Card key={index} {...item} />
+          return <Card key={index} {...item} />;
         })}
       </article>
     </Wrapper>
@@ -28,6 +28,7 @@ const Wrapper = styled.main`
   .cards-container {
     display: flex;
     gap: 2rem;
+    flex-wrap: wrap;
   }
 `;
 
