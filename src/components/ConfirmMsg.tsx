@@ -54,6 +54,7 @@ const Wrapper = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.3s ease;
+    border-radius: 0.4rem;
   }
 
   .confirm-msg {
@@ -70,23 +71,23 @@ const Wrapper = styled.div`
   .btn {
     margin: 2rem auto 0 auto;
     border: none;
-    /* background-color: ${styles.btnColor}; */
     color: #fff;
-    /* padding: 1rem 2rem; */
+    border-radius: 0.4rem;
     width: 8rem;
     padding: 1rem 0;
     cursor: pointer;
+    
     &:active {
       transform: translateY(2px);
     }
-  }
 
-  .btn-confirm {
-    background-color: ${styles.btnColor};
-  }
+    &-confirm {
+      background-color: ${styles.btnColor};
+    }
 
-  .btn-close {
-    background-color: ${styles.dangerColor};
+    &-close {
+      background-color: ${styles.dangerColor};
+    }
   }
 `;
 export default ConfirmMsg;

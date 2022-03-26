@@ -11,13 +11,7 @@ import { RootState } from '../store/store';
 import { fireError } from '../features/errorSlice';
 import { generateId } from '../utils/utils';
 import ErrorMsg from './ErrorMsg';
-// import { Button, IconButton, ButtonGroup, ButtonToolbar } from 'rsuite';
 
-// TODO
-// NEXT... COMEÇAR A PENSAR NO FIREBASE
-// validar CEP, CNPJ e CPF
-// SE DER EDITAR E N MEXER EM NADA, MOSTRAR SUAS ALTERAÇOES SERAM PERDIDAS??
-// ADICIONAR DEFAULT NOS SELECT
 
 const Cadastrar: React.FC = () => {
   const [empresa, setEmpresa] = useState<IUserData | any>({});
@@ -71,117 +65,157 @@ const Cadastrar: React.FC = () => {
           </button>
         </div>
       </div>
-      <form>
-        <label htmlFor='doc'>Tipo de Documento</label>
+      <form className='form'>
         <div className='form-control-dados'>
-          <select
-            name='tipoDeDoc'
-            id='doc'
-            onChange={handleChange}
-            value={empresa?.tipoDeDoc ?? ''}
-          >
-            <option value='cpf'>CPF</option>
-            <option value='cnpj'>CNPJ</option>
-          </select>
-          <input
-            name='cnpjOuCpf'
-            type='text'
-            placeholder='Documento'
-            onChange={handleChange}
-            value={empresa?.cnpjOuCpf ?? ''}
-          />
-          <input
-            name='razaoSocialOuNome'
-            className='nome-razao-social'
-            type='text'
-            placeholder='Nome Completo / Razão Social'
-            onChange={handleChange}
-            value={empresa?.razaoSocialOuNome ?? ''}
-          />
-          <input
-            type='email'
-            placeholder='E-mail'
-            onChange={handleChange}
-            name='email'
-            value={empresa?.email ?? ''}
-          />
-          <input
-            type='date'
-            placeholder='Data cadastro'
-            onChange={handleChange}
-            name='abertura'
-            value={empresa?.abertura ?? ''}
-          />
+          <div className='form-control-dados__doc-select'>
+            <label htmlFor='doc'>CPF / CNPJ</label>
+            <select
+              name='tipoDeDoc'
+              id='doc'
+              onChange={handleChange}
+              value={empresa?.tipoDeDoc ?? ''}
+            >
+              <option value='cpf'>CPF</option>
+              <option value='cnpj'>CNPJ</option>
+            </select>
+          </div>
+          <div className='form-control-dados__doc-input'>
+            <label htmlFor='cnpjOuCpf'>Nº Documento</label>
+            <input
+              name='cnpjOuCpf'
+              id='cnpjOuCpf'
+              type='text'
+              onChange={handleChange}
+              value={empresa?.cnpjOuCpf ?? ''}
+            />
+          </div>
+          <div className='form-control-dados__nome-razao-social'>
+            <label htmlFor='razaoSocialOuNome'>Nome / Razão Social</label>
+
+            <input
+              name='razaoSocialOuNome'
+              id='razaoSocialOuNome'
+              className='nome-razao-social'
+              type='text'
+              onChange={handleChange}
+              value={empresa?.razaoSocialOuNome ?? ''}
+            />
+          </div>
+          <div form-control-dados__email-input>
+            <label htmlFor='email'>E-mail</label>
+
+            <input
+              type='email'
+              onChange={handleChange}
+              name='email'
+              id='email'
+              value={empresa?.email ?? ''}
+            />
+          </div>
+          <div className='form-control-dados__data-input'>
+            <label htmlFor='abertura'>Data cadastro</label>
+
+            <input
+              type='date'
+              onChange={handleChange}
+              name='abertura'
+              value={empresa?.abertura ?? ''}
+              id='abertura'
+            />
+          </div>
         </div>
 
-        <label htmlFor='doc'>Endereço</label>
-
         <div className='form-control-endereco'>
-          <input
-            type='text'
-            placeholder='CEP'
-            className='cep'
-            onChange={handleChange}
-            name='cep'
-            value={empresa?.cep ?? ''}
-          />
-          <input
-            type='text'
-            placeholder='Endereço'
-            className='endereco'
-            onChange={handleChange}
-            name='rua'
-            value={empresa?.rua ?? ''}
-          />
-          <input
-            type='text'
-            placeholder='Número'
-            className='numero'
-            onChange={handleChange}
-            name='numero'
-            value={empresa?.numero ?? ''}
-          />
-          <input
-            type='text'
-            placeholder='Complemento'
-            className='complemento'
-            onChange={handleChange}
-            name='complemento'
-            value={empresa?.complemento ?? ''}
-          />
-          <input
-            type='text'
-            placeholder='Bairro'
-            className='bairro'
-            name='bairro'
-            onChange={handleChange}
-            value={empresa?.bairro ?? ''}
-          />
-          <select
-            name='uf'
-            id='uf'
-            onChange={handleChange}
-            value={empresa?.uf ?? ''}
-          >
-            {ufData
-              .sort((a, b) => (a.uf > b.uf ? 1 : -1))
-              .map((item) => {
-                const { uf } = item;
-                return (
-                  <option key={uf} value={uf}>
-                    {uf}
-                  </option>
-                );
-              })}
-          </select>
-          <input
-            type='text'
-            placeholder='Cidade'
-            className='cidade'
-            onChange={handleChange}
-            name='cidade'
-            value={empresa?.cidade ?? ''}
-          />
+          <div className='form-control-endereco__endereco'>
+            <label htmlFor='rua'>Rua</label>
+            <input
+              type='text'
+              className='endereco'
+              onChange={handleChange}
+              name='rua'
+              value={empresa?.rua ?? ''}
+              id='rua'
+            />
+          </div>
+          <div className='form-control-endereco__numero'>
+            <label htmlFor='numero'>Número</label>
+            <input
+              type='text'
+              className='numero'
+              onChange={handleChange}
+              name='numero'
+              id='numero'
+              value={empresa?.numero ?? ''}
+            />
+          </div>
+          <div className='form-control-endereco__complemento'>
+            <label htmlFor='complemento'>Complemento</label>
+
+            <input
+              type='text'
+              className='complemento'
+              onChange={handleChange}
+              name='complemento'
+              id='complemento'
+              value={empresa?.complemento ?? ''}
+            />
+          </div>
+          <div className='form-control-endereco__bairro'>
+            <label htmlFor='bairro'>Bairro</label>
+
+            <input
+              type='text'
+              className='bairro'
+              name='bairro'
+              id='bairro'
+              onChange={handleChange}
+              value={empresa?.bairro ?? ''}
+            />
+          </div>
+          <div className='form-control-endereco__cidade'>
+            <label htmlFor='cidade'>Cidade</label>
+
+            <input
+              type='text'
+              className='cidade'
+              onChange={handleChange}
+              name='cidade'
+              id='cidade'
+              value={empresa?.cidade ?? ''}
+            />
+          </div>
+          <div className='form-control-endereco__cep'>
+            <label htmlFor='cep'>CEP</label>
+
+            <input
+              type='text'
+              className='cep'
+              onChange={handleChange}
+              name='cep'
+              id='cep'
+              value={empresa?.cep ?? ''}
+            />
+          </div>
+          <div className='form-control-endereco__uf'>
+            <label htmlFor='uf'>Estado</label>
+            <select
+              name='uf'
+              id='uf'
+              onChange={handleChange}
+              value={empresa?.uf ?? ''}
+            >
+              {ufData
+                .sort((a, b) => (a.uf > b.uf ? 1 : -1))
+                .map((item) => {
+                  const { uf } = item;
+                  return (
+                    <option key={uf} value={uf}>
+                      {uf}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
         </div>
       </form>
     </Wrapper>
@@ -193,67 +227,64 @@ const Wrapper = styled.main`
   background-color: #fff;
   box-shadow: ${styles.boxShadow};
 
-  form {
+  .form {
     padding: 2rem 2rem 3rem 2rem;
-    
   }
 
   label {
     display: block;
-    padding: 1.5rem 2rem 0 2rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: ${styles.textColor};
-    font-weight: 500;
   }
 
   select,
   input {
-    padding: 0.5rem 0.5rem;
+    display: block;
+    padding: 0.5rem 0;
     border: none;
     border-bottom: 1px solid #dee2e6;
+    width: 100%;
   }
 
   select:focus,
   input:focus {
     outline: none;
-    border-bottom: 1px solid #868e96;
+    border-bottom: 1px solid ${styles.secondaryColor};
   }
-
-  .form-control-dados {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    padding: 0.5rem 2rem 3rem 2rem;
-  }
-
-  .nome-razao-social {
-    grid-column: 3 / 5;
-  }
-
-  .form-control-endereco {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2rem;
-    padding: 0.5rem 2rem 3rem 2rem;
-  }
-
-  .cep {
-    grid-column: 1 / 3;
-  }
-
-  .endereco {
-    grid-column: 3 /6;
-  }
-
   input[type='date']::-webkit-calendar-picker-indicator {
     filter: invert(8%) sepia(25%) saturate(896%) hue-rotate(193deg)
       brightness(94%) contrast(91%);
+      cursor: pointer;
   }
 
   select,
   input[type='date'] {
     color: ${styles.textColor};
   }
+
+  .form-control-dados {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 0.5rem 2rem 3rem 0rem;
+  }
+
+  .form-control-dados__nome-razao-social {
+    grid-column: 3 / 5;
+  }
+
+  .form-control-endereco {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+
+    &__endereco {
+      grid-column: 1 / 3;
+    }
+  }
+
+  
 
   .title-container {
     background-color: ${styles.bgDefault};
@@ -266,7 +297,6 @@ const Wrapper = styled.main`
     height: 5.6rem;
     border-top-left-radius: 0.4rem;
     border-top-right-radius: 0.4rem;
-
   }
   .head-container {
     display: flex;
@@ -286,9 +316,63 @@ const Wrapper = styled.main`
     background-color: #303341;
     border: none;
     cursor: pointer;
+    border-radius: 0.4rem;
+
 
     :active {
       transform: translateY(2px);
+    }
+  }
+
+  @media only screen and (max-width: 1115px) {
+    .form-control-dados__nome-razao-social {
+      grid-column: 3 / 4;
+    }
+  }
+
+  @media only screen and (max-width: 956px) {
+    .form-control-dados {
+      &__nome-razao-social {
+        grid-column: 1 / 5;
+      }
+
+      &__doc-select {
+        grid-row: 2 / 3;
+        grid-column: 1 / 3;
+      }
+
+      &__doc-input {
+        grid-row: 2 / 3;
+        grid-column: 3 / 5;
+      }
+
+      &__email-input {
+        grid-row: 3 / 4;
+        grid-column: 1 / 3;
+      }
+
+      &__data-input {
+        grid-row: 3 / 4;
+        grid-column: 3 / 5;
+      }
+    }
+
+    .form-control-endereco {
+      &__endereco {
+        grid-column: 1 / 4;
+      }
+
+      &__complemento {
+        grid-column: 1 /3;
+      }
+
+      &__bairro {
+        grid-column: 3 / 5;
+      }
+
+      &__cidade {
+        grid-column: 1 / 3;
+      }
     }
   }
 `;

@@ -98,133 +98,165 @@ const Editar = () => {
           </button>
         </div>
       </div>
-      <form>
-        <label htmlFor='tipoDeDoc'>Dados Gerais</label>
+      <form className='form'>
         <div className='form-control-dados'>
-          <select
-            value={empresa?.tipoDeDoc}
-            name='tipoDeDoc'
-            id='doc'
-            disabled={isDisable}
-            onChange={handleChange}
-            className='doc-select'
-          >
-            <option value='cpf'>CPF</option>
-            <option value='cnpj'>CNPJ</option>
-          </select>
-          <input
-            value={empresa?.cnpjOuCpf || ''}
-            type='text'
-            placeholder='Nº documento'
-            onChange={handleChange}
-            name='cnpjOuCpf'
-            disabled={isDisable}
-            className='doc-input'
-          />
-          <input
-            className='nome-razao-social'
-            type='text'
-            placeholder='Nome Completo / Razão Social'
-            value={empresa?.razaoSocialOuNome || ''}
-            disabled={isDisable}
-            onChange={handleChange}
-            name='razaoSocialOuNome'
-          />
-          <input
-            value={empresa?.email || ''}
-            type='email'
-            placeholder='E-mail'
-            disabled={isDisable}
-            onChange={handleChange}
-            name='email'
-            className='email-input'
-          />
-          <input
-            value={empresa?.abertura || ''}
-            type='date'
-            placeholder='Data cadastro'
-            disabled={isDisable}
-            onChange={handleChange}
-            name='abertura'
-            className='data-input'
-          />
+          <div className='form-control-dados__doc-select'>
+            <label htmlFor='doc'>CPF / CNPJ</label>
+            <select
+              value={empresa?.tipoDeDoc}
+              name='tipoDeDoc'
+              id='doc'
+              disabled={isDisable}
+              onChange={handleChange}
+              className=''
+            >
+              <option value='cpf'>CPF</option>
+              <option value='cnpj'>CNPJ</option>
+            </select>
+          </div>
+          <div className='form-control-dados__doc-input'>
+            <label htmlFor='cnpjOuCpf'>Nº Documento</label>
+            <input
+              value={empresa?.cnpjOuCpf || ''}
+              type='text'
+              onChange={handleChange}
+              name='cnpjOuCpf'
+              id='cnpjOuCpf'
+              disabled={isDisable}
+            />
+          </div>
+          <div className='form-control-dados__nome-razao-social'>
+            <label htmlFor='razaoSocialOuNome'>Nome / Razão Social</label>
+            <input
+              type='text'
+              value={empresa?.razaoSocialOuNome || ''}
+              disabled={isDisable}
+              onChange={handleChange}
+              name='razaoSocialOuNome'
+              id='razaoSocialOuNome'
+            />
+          </div>
+          <div className='form-control-dados__email-input'>
+            <label htmlFor='email'>E-mail</label>
+            <input
+              value={empresa?.email || ''}
+              type='email'
+              disabled={isDisable}
+              onChange={handleChange}
+              name='email'
+              id='email'
+            />
+          </div>
+          <div className='form-control-dados__data-input'>
+            <label htmlFor='abertura'>Data cadastro</label>
+            <input
+              value={empresa?.abertura || ''}
+              type='date'
+              disabled={isDisable}
+              onChange={handleChange}
+              name='abertura'
+              id='abertura'
+            />
+          </div>
         </div>
-        <label htmlFor='doc'>Endereço</label>
 
         <div className='form-control-endereco'>
-          <input
-            value={empresa?.cep || ''}
-            type='text'
-            placeholder='CEP'
-            className='cep'
-            disabled={isDisable}
-            name='cep'
-            onChange={handleChange}
-          />
-          <input
-            value={empresa?.rua || ''}
-            type='text'
-            placeholder='Endereço'
-            className='endereco'
-            disabled={isDisable}
-            onChange={handleChange}
-            name='rua'
-          />
-          <input
-            value={empresa?.numero || ''}
-            type='text'
-            placeholder='Número'
-            className='numero'
-            disabled={isDisable}
-            onChange={handleChange}
-            name='numero'
-          />
-          <input
-            type='text'
-            placeholder='Complemento'
-            className='complemento'
-            value={empresa?.complemento || ''}
-            disabled={isDisable}
-            onChange={handleChange}
-            name='complemento'
-          />
-          <input
-            value={empresa?.bairro || ''}
-            type='text'
-            placeholder='Bairro'
-            className='bairro'
-            disabled={isDisable}
-            onChange={handleChange}
-            name='bairro'
-          />
-          <input
-            value={empresa?.cidade || ''}
-            type='text'
-            placeholder='Cidade'
-            className='cidade'
-            disabled={isDisable}
-            onChange={handleChange}
-            name='cidade'
-          />
-          <select
-            value={empresa?.uf}
-            name='uf'
-            id='uf'
-            disabled={isDisable}
-            onChange={handleChange}
-          >
-            {ufData
-              .sort((item) => (item.uf.toLowerCase() === empresa?.uf ? -1 : 1))
-              .map((i) => {
-                const { uf } = i;
-                return (
-                  <option key={uf} value={uf}>
-                    {uf}
-                  </option>
-                );
-              })}
-          </select>
-          
+          <div className='form-control-endereco__endereco'>
+            <label htmlFor='rua'>Rua</label>
+            <input
+              value={empresa?.rua || ''}
+              type='text'
+              className='endereco'
+              disabled={isDisable}
+              onChange={handleChange}
+              name='rua'
+              id='rua'
+            />
+          </div>
+          <div className='form-control-endereco__numero'>
+            <label htmlFor='numero'>Número</label>
+            <input
+              value={empresa?.numero || ''}
+              type='number'
+              min='0'
+              disabled={isDisable}
+              onChange={handleChange}
+              name='numero'
+              id='numero'
+            />
+          </div>
+          <div className='form-control-endereco__complemento'>
+            <label htmlFor='complemento'>Complemento</label>
+            <input
+              type='text'
+              className='complemento'
+              value={empresa?.complemento || ''}
+              disabled={isDisable}
+              onChange={handleChange}
+              name='complemento'
+              id='complemento'
+            />
+          </div>
+          <div className='form-control-endereco__bairro'>
+            <label htmlFor='bairro'>Bairro</label>
+            <input
+              value={empresa?.bairro || ''}
+              type='text'
+              className='bairro'
+              disabled={isDisable}
+              onChange={handleChange}
+              name='bairro'
+              id='bairro'
+            />
+          </div>
+          <div className='form-control-endereco__cidade'>
+            <label htmlFor='cidade'>Cidade</label>
+            <input
+              value={empresa?.cidade || ''}
+              type='text'
+              className='cidade'
+              disabled={isDisable}
+              onChange={handleChange}
+              name='cidade'
+              id='cidade'
+            />
+          </div>
+          <div className='form-control-endereco__cep'>
+            <label htmlFor='cep'>CEP</label>
+            <input
+              value={empresa?.cep || ''}
+              type='text'
+              className='cep'
+              disabled={isDisable}
+              name='cep'
+              id='cep'
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className='form-control-endereco__uf'>
+            <label htmlFor='uf'>Estado</label>
+            <select
+              value={empresa?.uf}
+              name='uf'
+              id='uf'
+              disabled={isDisable}
+              onChange={handleChange}
+            >
+              {ufData
+                .sort((item) =>
+                  item.uf.toLowerCase() === empresa?.uf ? -1 : 1
+                )
+                .map((i) => {
+                  const { uf } = i;
+                  return (
+                    <option key={uf} value={uf}>
+                      {uf}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
         </div>
       </form>
     </Wrapper>
@@ -265,29 +297,40 @@ const Wrapper = styled.main`
     gap: 2rem;
   }
 
-  form {
+  .form {
     padding: 2rem 2rem 3rem 2rem;
   }
 
   label {
     display: block;
-    padding: 1.5rem 2rem 0 2rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: ${styles.textColor};
-    font-weight: 500;
   }
 
   select,
   input {
-    padding: 0.5rem 0.5rem;
+    display: block;
+    padding: 0.5rem 0;
     border: none;
     border-bottom: 1px solid #dee2e6;
+    width: 100%;
   }
 
   select:focus,
   input:focus {
     outline: none;
-    border-bottom: 1px solid #868e96;
+    border-bottom: 1px solid ${styles.secondaryColor};
+
+  }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(8%) sepia(25%) saturate(896%) hue-rotate(193deg)
+      brightness(94%) contrast(91%);
+    cursor: pointer;
+  }
+
+  select,
+  input[type='date'] {
+    color: ${styles.textColor};
   }
 
   .form-control-dados {
@@ -295,10 +338,10 @@ const Wrapper = styled.main`
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 2rem;
-    padding: 0.5rem 2rem 3rem 2rem;
+    padding: 0.5rem 2rem 3rem 0rem;
   }
 
-  .nome-razao-social {
+  .form-control-dados__nome-razao-social {
     grid-column: 3 / 5;
   }
 
@@ -306,25 +349,10 @@ const Wrapper = styled.main`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    padding: 0.5rem 2rem 3rem 2rem;
-  }
 
-  .cep {
-    grid-column: 1 / 3;
-  }
-
-  .endereco {
-    grid-column: 3 /5;
-  }
-
-  input[type='date']::-webkit-calendar-picker-indicator {
-    filter: invert(8%) sepia(25%) saturate(896%) hue-rotate(193deg)
-      brightness(94%) contrast(91%);
-  }
-
-  select,
-  input[type='date'] {
-    color: ${styles.textColor};
+    &__endereco {
+      grid-column: 1 / 3;
+    }
   }
 
   .btn {
@@ -333,6 +361,8 @@ const Wrapper = styled.main`
     background-color: #303341;
     border: none;
     cursor: pointer;
+    border-radius: 0.4rem;
+
     :active {
       transform: translateY(2px);
     }
@@ -346,38 +376,54 @@ const Wrapper = styled.main`
   }
 
   @media only screen and (max-width: 1115px) {
-    .nome-razao-social {
+    .form-control-dados__nome-razao-social {
       grid-column: 3 / 4;
     }
   }
 
   @media only screen and (max-width: 956px) {
     .form-control-dados {
-      grid-template-rows: repeat(3, 1fr);
+      &__nome-razao-social {
+        grid-column: 1 / 5;
+      }
+
+      &__doc-select {
+        grid-row: 2 / 3;
+        grid-column: 1 / 3;
+      }
+
+      &__doc-input {
+        grid-row: 2 / 3;
+        grid-column: 3 / 5;
+      }
+
+      &__email-input {
+        grid-row: 3 / 4;
+        grid-column: 1 / 3;
+      }
+
+      &__data-input {
+        grid-row: 3 / 4;
+        grid-column: 3 / 5;
+      }
     }
 
-    .nome-razao-social {
-      grid-column: 1 / 5;
-    }
+    .form-control-endereco {
+      &__endereco {
+        grid-column: 1 / 4;
+      }
 
-    .doc-select {
-      grid-row: 2 / 3;
-      grid-column: 1 / 3;
-    }
+      &__complemento {
+        grid-column: 1 /3;
+      }
 
-    .doc-input {
-      grid-row: 2 / 3;
-      grid-column: 3 / 5;
-    }
+      &__bairro {
+        grid-column: 3 / 5;
+      }
 
-    .email-input {
-      grid-row: 3 / 4;
-      grid-column: 1 / 3;
-    }
-
-    .data-input {
-      grid-row: 3 / 4;
-      grid-column: 3 / 5;
+      &__cidade {
+        grid-column: 1 / 3;
+      }
     }
   }
 `;

@@ -7,7 +7,7 @@ export interface IData {
 
 export const dadosInicio: IData[] = [
   { name: 'listar empresas', path: 'empresas' },
-  { name: 'cadastrar empresas', path: 'cadastrar' },
+  { name: 'cadastrar empresa', path: 'cadastrar' },
 ];
 
 export const ufData: IUF[] = [

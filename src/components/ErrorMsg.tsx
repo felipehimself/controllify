@@ -42,6 +42,8 @@ const Wrapper = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.3s ease;
+    border-radius: 0.4rem;
+
   }
 
   .error-msg {
@@ -58,6 +60,8 @@ const Wrapper = styled.div`
     color: #fff;
     padding: 1rem 2rem;
     cursor: pointer;
+    border-radius: 0.4rem;
+
 
     &:active {
       transform: translateY(2px);

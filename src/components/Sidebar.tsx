@@ -95,7 +95,6 @@ const Wrapper = styled.nav`
     width: 100px;
   }
 
-
   .empresas {
     border-left: 2px solid ${styles.secondaryColor};
   }

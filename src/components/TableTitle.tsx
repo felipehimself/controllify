@@ -1,8 +1,6 @@
 import { FaChevronLeft } from 'react-icons/fa';
 import styled from 'styled-components';
 import styles from '../styles/styles';
-import ButtonSalvar from './ButtonSalvar';
-import ButtonEditar from './ButtonEditar';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {
@@ -23,12 +21,7 @@ const TableTitle: React.FC<IProps> = ({ path, button }) => {
         />
         <h2 className='title-container__title'>{path}</h2>
       </div>
-      {button && (
-        <div className='btn-container'>
-          <ButtonEditar />
-          <ButtonSalvar />
-        </div>
-      )}
+      
     </Wrapper>
   );
 };
