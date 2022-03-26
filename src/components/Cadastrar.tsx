@@ -195,6 +195,7 @@ const Wrapper = styled.main`
 
   form {
     padding: 2rem 2rem 3rem 2rem;
+    
   }
 
   label {
@@ -263,6 +264,9 @@ const Wrapper = styled.main`
     gap: 1rem;
     padding: 1.5rem 1rem;
     height: 5.6rem;
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+
   }
   .head-container {
     display: flex;
