@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FaHome, FaCity, FaRegListAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from '../styles/styles';
 import { useLocation } from 'react-router-dom';
 
@@ -9,26 +9,26 @@ const Sidebar: React.FC = () => {
 
   return (
     <Wrapper>
-      <Link to='/' className={pathname === '/' ? 'home icon-abs' : 'icon-abs'}>
+      <NavLink to='/' className={({isActive})=> isActive ? 'home icon-abs' : 'icon-abs'}>
         <FaHome style={{ color: '#fff' }} size={'2.2rem'} />
         <span className='icon-abs__el'>Home</span>
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         className={pathname.includes('empresas') ? 'empresas icon-abs' : 'icon-abs'}
         to='/empresas'
       >
         <FaCity style={{ color: '#fff' }} size={'2.2rem'} />
         <span className='icon-abs__el'>Empresas</span>
 
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         className={pathname.includes('cadastrar') ? 'cadastrar icon-abs' : 'icon-abs'}
         to='/cadastrar'
       >
         <FaRegListAlt style={{ color: '#fff' }} size={'2.2rem'} />
         <span className='icon-abs__el'>Cadastrar</span>
 
-      </Link>
+      </NavLink>
     </Wrapper>
   );
 };
