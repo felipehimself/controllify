@@ -138,7 +138,7 @@ const TableEmpresas = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 5rem 5rem 0 10.8rem;
+  margin: 9rem 5rem 0 10.8rem;
   font-size: 1.2rem;
 
   .btn-edit {

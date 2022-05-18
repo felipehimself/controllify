@@ -246,7 +246,7 @@ const FormCadastrar: React.FC = () => {
 };
 
 const Wrapper = styled.main`
-  margin: 5rem 4rem 0 10.8rem;
+  margin: 9rem 4rem 0 10.8rem;
   background-color: #fff;
   box-shadow: ${styles.effects.boxShadow};
 

@@ -17,7 +17,7 @@ const Home: React.FC = () => {
 };
 
 const Wrapper = styled.main`
-  margin: 5rem 2rem 0 10.8rem;
+  margin: 9rem 2rem 0 10.8rem;
 
   .title {
     font-size: 2rem;

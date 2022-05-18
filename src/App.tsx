@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/elements/Sidebar';
-import Header from 'rsuite/esm/Calendar/Header';
+import Header from './components/elements/Header';
 import Home from './pages/Home';
 
 import Empresas from './pages/Empresas';
