@@ -1,43 +1,51 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeState } from '../../features/buttonsSlice';
+import { updateData } from '../../features/dataSlice';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import styles from '../styles/styles';
-import { ufData } from '../data/dadosGerais';
-import { IUserData } from '../interfaces/interfaces';
+import styles from '../../styles/styles';
+import { ufData } from '../../data/dadosGerais';
+import { RootState } from '../../store/store';
+import { IUserData } from '../../interfaces/interfaces';
 import { FaChevronLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { insertEmpresa } from '../features/dataSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/store';
-import { fireError } from '../features/errorSlice';
-import { generateId } from '../utils/utils';
-import ErrorMsg from './ErrorMsg';
+import PopUpError from '../ui/PopUpError';
+import { fireError } from '../../features/errorSlice';
 
-
-const Cadastrar: React.FC = () => {
+const FormEditar = () => {
   const [empresa, setEmpresa] = useState<IUserData | any>({});
+  const [bkpEmpresa, setBkpEmpresa] = useState<IUserData | any>({});
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  const { id } = useParams();
+  const { dados } = useSelector((state: RootState) => state.dados);
+  const { isDisable } = useSelector((state: RootState) => state.buttonState);
   const errorState = useSelector((state: RootState) => state.errorState);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeState(true));
+    const unicaEmpresa = dados.find((item) => item.id === id);
+    setEmpresa(unicaEmpresa);
+    setBkpEmpresa(unicaEmpresa);
+  }, [id, dados, dispatch]);
+
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
     setEmpresa((prev: any) => {
       return { ...prev, [name]: value };
     });
   };
 
   const handleSubmit = () => {
-    if (Object.values(empresa).filter(Boolean).length === 12) {
-      setEmpresa((prev: any) => {
-        return { ...prev, id: generateId() };
-      });
-      dispatch(insertEmpresa(empresa));
+    if (Object.values(empresa).filter(Boolean).length === 13) {
+      dispatch(updateData({ id: empresa.id, data: empresa }));
       setEmpresa({});
       navigate('/empresas');
     } else {
@@ -47,9 +55,14 @@ const Cadastrar: React.FC = () => {
     }
   };
 
+  const handleCancelar = () => {
+    setEmpresa(bkpEmpresa);
+    dispatch(changeState(true));
+  };
+
   return (
     <Wrapper>
-      {errorState.value && <ErrorMsg {...errorState} />}
+      {errorState.value && <PopUpError {...errorState} />}
       <div className='title-container'>
         <div className='head-container'>
           <FaChevronLeft
@@ -57,10 +70,29 @@ const Cadastrar: React.FC = () => {
             size={12}
             style={{ color: '#fff', cursor: 'pointer' }}
           />
-          <h2 className='title-container__title'>Cadastrar</h2>
+          <h2 className='title-container__title'>Empresas / Editar</h2>
         </div>
         <div className='btn-container'>
-          <button onClick={handleSubmit} className='btn-salvar'>
+          {!isDisable && (
+            <button
+              onClick={handleCancelar}
+              className='btn btn-cancelar'
+              disabled={isDisable}
+            >
+              CANCELAR
+            </button>
+          )}
+          <button
+            className={isDisable ? 'btn' : 'btn btn-not-allowed'}
+            onClick={() => dispatch(changeState(false))}
+          >
+            EDITAR
+          </button>
+          <button
+            onClick={handleSubmit}
+            className={isDisable ? 'btn btn-not-allowed' : 'btn'}
+            disabled={isDisable}
+          >
             SALVAR
           </button>
         </div>
@@ -68,58 +100,70 @@ const Cadastrar: React.FC = () => {
       <form className='form'>
         <div className='form-control-dados'>
           <div className='form-control-dados__doc-select'>
-            <label htmlFor='doc'>CPF / CNPJ</label>
+            <label className='label' htmlFor='doc'>
+              CPF / CNPJ
+            </label>
             <select
+              value={empresa?.tipoDeDoc}
               name='tipoDeDoc'
               id='doc'
+              disabled={isDisable}
               onChange={handleChange}
-              value={empresa?.tipoDeDoc ?? ''}
+              className=''
             >
               <option value='cpf'>CPF</option>
               <option value='cnpj'>CNPJ</option>
             </select>
           </div>
           <div className='form-control-dados__doc-input'>
-            <label htmlFor='cnpjOuCpf'>Nº Documento</label>
+            <label className='label' htmlFor='cnpjOuCpf'>
+              Nº Documento
+            </label>
             <input
-              name='cnpjOuCpf'
-              id='cnpjOuCpf'
+              value={empresa?.cnpjOuCpf || ''}
               type='text'
               onChange={handleChange}
-              value={empresa?.cnpjOuCpf ?? ''}
+              name='cnpjOuCpf'
+              id='cnpjOuCpf'
+              disabled={isDisable}
             />
           </div>
           <div className='form-control-dados__nome-razao-social'>
-            <label htmlFor='razaoSocialOuNome'>Nome / Razão Social</label>
-
+            <label className='label' htmlFor='razaoSocialOuNome'>
+              Nome / Razão Social
+            </label>
             <input
+              type='text'
+              value={empresa?.razaoSocialOuNome || ''}
+              disabled={isDisable}
+              onChange={handleChange}
               name='razaoSocialOuNome'
               id='razaoSocialOuNome'
-              className='nome-razao-social'
-              type='text'
-              onChange={handleChange}
-              value={empresa?.razaoSocialOuNome ?? ''}
             />
           </div>
-          <div form-control-dados__email-input>
-            <label htmlFor='email'>E-mail</label>
-
+          <div className='form-control-dados__email-input'>
+            <label className='label' htmlFor='email'>
+              E-mail
+            </label>
             <input
+              value={empresa?.email || ''}
               type='email'
+              disabled={isDisable}
               onChange={handleChange}
               name='email'
               id='email'
-              value={empresa?.email ?? ''}
             />
           </div>
           <div className='form-control-dados__data-input'>
-            <label htmlFor='abertura'>Data cadastro</label>
-
+            <label className='label' htmlFor='abertura'>
+              Data cadastro
+            </label>
             <input
+              value={empresa?.abertura || ''}
               type='date'
+              disabled={isDisable}
               onChange={handleChange}
               name='abertura'
-              value={empresa?.abertura ?? ''}
               id='abertura'
             />
           </div>
@@ -127,87 +171,107 @@ const Cadastrar: React.FC = () => {
 
         <div className='form-control-endereco'>
           <div className='form-control-endereco__endereco'>
-            <label htmlFor='rua'>Rua</label>
+            <label className='label' htmlFor='rua'>
+              Rua
+            </label>
             <input
+              value={empresa?.rua || ''}
               type='text'
               className='endereco'
+              disabled={isDisable}
               onChange={handleChange}
               name='rua'
-              value={empresa?.rua ?? ''}
               id='rua'
             />
           </div>
           <div className='form-control-endereco__numero'>
-            <label htmlFor='numero'>Número</label>
+            <label className='label' htmlFor='numero'>
+              Número
+            </label>
             <input
-              type='text'
-              className='numero'
+              value={empresa?.numero || ''}
+              type='number'
+              min='0'
+              disabled={isDisable}
               onChange={handleChange}
               name='numero'
               id='numero'
-              value={empresa?.numero ?? ''}
             />
           </div>
           <div className='form-control-endereco__complemento'>
-            <label htmlFor='complemento'>Complemento</label>
-
+            <label className='label' htmlFor='complemento'>
+              Complemento
+            </label>
             <input
               type='text'
               className='complemento'
+              value={empresa?.complemento || ''}
+              disabled={isDisable}
               onChange={handleChange}
               name='complemento'
               id='complemento'
-              value={empresa?.complemento ?? ''}
             />
           </div>
           <div className='form-control-endereco__bairro'>
-            <label htmlFor='bairro'>Bairro</label>
-
+            <label className='label' htmlFor='bairro'>
+              Bairro
+            </label>
             <input
+              value={empresa?.bairro || ''}
               type='text'
               className='bairro'
+              disabled={isDisable}
+              onChange={handleChange}
               name='bairro'
               id='bairro'
-              onChange={handleChange}
-              value={empresa?.bairro ?? ''}
             />
           </div>
           <div className='form-control-endereco__cidade'>
-            <label htmlFor='cidade'>Cidade</label>
-
+            <label className='label' htmlFor='cidade'>
+              Cidade
+            </label>
             <input
+              value={empresa?.cidade || ''}
               type='text'
               className='cidade'
+              disabled={isDisable}
               onChange={handleChange}
               name='cidade'
               id='cidade'
-              value={empresa?.cidade ?? ''}
             />
           </div>
           <div className='form-control-endereco__cep'>
-            <label htmlFor='cep'>CEP</label>
-
+            <label className='label' htmlFor='cep'>
+              CEP
+            </label>
             <input
+              value={empresa?.cep || ''}
               type='text'
               className='cep'
-              onChange={handleChange}
+              disabled={isDisable}
               name='cep'
               id='cep'
-              value={empresa?.cep ?? ''}
+              onChange={handleChange}
             />
           </div>
+
           <div className='form-control-endereco__uf'>
-            <label htmlFor='uf'>Estado</label>
+            <label className='label' htmlFor='uf'>
+              Estado
+            </label>
             <select
+              value={empresa?.uf}
               name='uf'
               id='uf'
+              disabled={isDisable}
               onChange={handleChange}
-              value={empresa?.uf ?? ''}
             >
               {ufData
-                .sort((a, b) => (a.uf > b.uf ? 1 : -1))
-                .map((item) => {
-                  const { uf } = item;
+                .sort((item) =>
+                  item.uf.toLowerCase() === empresa?.uf ? -1 : 1
+                )
+                .map((i) => {
+                  const { uf } = i;
                   return (
                     <option key={uf} value={uf}>
                       {uf}
@@ -223,18 +287,47 @@ const Cadastrar: React.FC = () => {
 };
 
 const Wrapper = styled.main`
-  margin: 9.7rem 4rem 0 10.8rem;
+  margin: 5rem 4rem 0 10.8rem;
   background-color: #fff;
-  box-shadow: ${styles.boxShadow};
+  box-shadow: ${styles.effects.boxShadow};
+
+  .title-container {
+    background-color: ${styles.colors.colorGrayDark};
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+    height: 5.6rem;
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+  }
+  .head-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 1rem;
+  }
+
+  .title-container__title {
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 2rem;
+  }
 
   .form {
     padding: 2rem 2rem 3rem 2rem;
   }
 
-  label {
+  .label {
     display: block;
     font-size: 1.4rem;
-    color: ${styles.textColor};
+    color: ${styles.colors.colorGrayLight};
   }
 
   select,
@@ -249,17 +342,17 @@ const Wrapper = styled.main`
   select:focus,
   input:focus {
     outline: none;
-    border-bottom: 1px solid ${styles.secondaryColor};
+    border-bottom: 1px solid ${styles.colors.colorPurpleLight};
   }
   input[type='date']::-webkit-calendar-picker-indicator {
     filter: invert(8%) sepia(25%) saturate(896%) hue-rotate(193deg)
       brightness(94%) contrast(91%);
-      cursor: pointer;
+    cursor: pointer;
   }
 
   select,
   input[type='date'] {
-    color: ${styles.textColor};
+    color: ${styles.colors.colorGrayLight};
   }
 
   .form-control-dados {
@@ -284,33 +377,7 @@ const Wrapper = styled.main`
     }
   }
 
-  
-
-  .title-container {
-    background-color: ${styles.bgDefault};
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 1rem;
-    height: 5.6rem;
-    border-top-left-radius: 0.4rem;
-    border-top-right-radius: 0.4rem;
-  }
-  .head-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-left: 1rem;
-  }
-
-  .title-container__title {
-    font-weight: normal;
-    font-size: 1.5rem;
-  }
-
-  .btn-salvar {
+  .btn {
     padding: 0.5rem 2rem;
     color: #fff;
     background-color: #303341;
@@ -318,9 +385,15 @@ const Wrapper = styled.main`
     cursor: pointer;
     border-radius: 0.4rem;
 
-
     :active {
       transform: translateY(2px);
+    }
+  }
+
+  .btn-not-allowed {
+    cursor: not-allowed;
+    :active {
+      transform: translateY(0);
     }
   }
 
@@ -376,4 +449,5 @@ const Wrapper = styled.main`
     }
   }
 `;
-export default Cadastrar;
+
+export default FormEditar;

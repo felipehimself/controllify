@@ -1,22 +1,21 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 import { Pagination } from 'rsuite';
 
 import 'rsuite-table/dist/css/rsuite-table.css';
-import 'rsuite/dist/rsuite.min.css'
+import 'rsuite/dist/rsuite.min.css';
 // import 'rsuite-table/lib/less/index.less'
-
 
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
-import TableTitle from './TableTitle';
+import { RootState } from '../../store/store';
+import TableTitle from '../ui/TableTitle';
 import { useDispatch } from 'react-redux';
-import styles from '../styles/styles';
-import ConfirmMsg from './ConfirmMsg';
+import styles from '../../styles/styles';
+import ConfirmModal from './ConfirmModal';
 
-import { fireConfirm } from '../features/confirmSlice';
+import { fireConfirm } from '../../features/confirmSlice';
 const TableEmpresas = () => {
   const [loading, setLoading] = React.useState(false);
   const [limit, setLimit] = React.useState(10);
@@ -32,18 +31,27 @@ const TableEmpresas = () => {
     setLimit(dataKey);
   };
 
-  const data = useMemo(()=> dados.filter((v, i) => {
-    const start = limit * (page - 1);
-    const end = start + limit;
-    return i >= start && i < end;
-  }), [dados, limit, page] ) 
+  const data = useMemo(
+    () =>
+      dados.filter((v, i) => {
+        const start = limit * (page - 1);
+        const end = start + limit;
+        return i >= start && i < end;
+      }),
+    [dados, limit, page]
+  );
 
   return (
     <Wrapper>
-      {confirmState.value && <ConfirmMsg {...confirmState} />}
+      {confirmState.value && <ConfirmModal {...confirmState} />}
       <TableTitle path={'Empresas'} />
-      <Table height={400} loading={loading} data={data} onRowClick={(data) => {}} locale={{ emptyMessage: "Sem dados para exibir"}}
->
+      <Table
+        height={400}
+        loading={loading}
+        data={data}
+        onRowClick={(data) => {}}
+        locale={{ emptyMessage: 'Sem dados para exibir' }}
+      >
         <Column width={200} fixed>
           <HeaderCell>EMPRESA</HeaderCell>
           <Cell dataKey='razaoSocialOuNome' />
@@ -107,7 +115,7 @@ const TableEmpresas = () => {
       </Table>
       <div style={{ padding: 20 }}>
         <Pagination
-        locale={{total: "", limit: "10", skip:''}}
+          locale={{ total: '', limit: '10', skip: '' }}
           prev
           next
           first
@@ -130,7 +138,7 @@ const TableEmpresas = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 9.7rem 5rem 0 10.8rem;
+  margin: 5rem 5rem 0 10.8rem;
   font-size: 1.2rem;
 
   .btn-edit {
@@ -140,7 +148,7 @@ const Wrapper = styled.div`
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
     &:hover {
-      border-bottom: 1px solid ${styles.secondaryColor};
+      border-bottom: 1px solid ${styles.colors.colorPurpleLight};
     }
   }
 
@@ -154,7 +162,7 @@ const Wrapper = styled.div`
     transition: all 0.3s ease;
 
     &:hover {
-      border-bottom: 1px solid ${styles.secondaryColor};
+      border-bottom: 1px solid ${styles.colors.colorPurpleLight};
     }
   }
 

@@ -1,14 +1,13 @@
 import { FaChevronLeft } from 'react-icons/fa';
 import styled from 'styled-components';
-import styles from '../styles/styles';
+import styles from '../../styles/styles';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   path?: string;
-  button?: boolean;
 }
 
-const TableTitle: React.FC<IProps> = ({ path, button }) => {
+const TableTitle: React.FC<IProps> = ({ path }) => {
   const navigate = useNavigate();
 
   return (
@@ -19,7 +18,7 @@ const TableTitle: React.FC<IProps> = ({ path, button }) => {
           size={12}
           style={{ color: '#fff', cursor: 'pointer' }}
         />
-        <h2 className='title-container__title'>{path}</h2>
+        <h2 className='title'>{path}</h2>
       </div>
       
     </Wrapper>
@@ -27,7 +26,7 @@ const TableTitle: React.FC<IProps> = ({ path, button }) => {
 };
 
 const Wrapper = styled.div`
-  background-color: ${styles.bgDefault};
+  background-color: ${styles.colors.colorGrayDark};
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -45,14 +44,14 @@ const Wrapper = styled.div`
     margin-left: 1rem;
   }
 
-  .title-container__title {
+  .title {
     font-weight: normal;
     font-size: 1.5rem;
   }
 
-  .btn-container {
+  /* .btn-container {
     display: flex;
     gap: 2rem;
-  }
+  } */
 `;
 export default TableTitle;

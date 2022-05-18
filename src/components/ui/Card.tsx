@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import styles from './../styles/styles';
-import { IData } from './../data/dadosGerais';
+import styles from '../../styles/styles';
+import { IData } from '../../data/dadosGerais';
 
 const Card: React.FC<IData> = ({ name, path }) => {
   return (
     <Wrapper>
       <Link to={`/${path}`}>
-        <p>{name}</p>
-        <span>&#x2192;</span>
+        <p className='name'>{name}</p>
+        <span className='arrow'>&#x2192;</span>
       </Link>
     </Wrapper>
   );
@@ -16,7 +16,6 @@ const Card: React.FC<IData> = ({ name, path }) => {
 
 const Wrapper = styled.div`
   min-width: 20rem;
-  /* width: 100%; */
   border-radius: 0.4rem;
   background-color: #ffffff;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26);
@@ -39,17 +38,17 @@ const Wrapper = styled.div`
     align-items: center;
     gap: 1rem;
     padding: 4rem 0;
-    color: ${styles.textColor};
+    color: ${styles.colors.colorGrayLight};
   }
 
-  p {
+  .name {
     text-align: center;
     font-size: 1.5rem;
     text-transform: capitalize;
     font-weight: 500;
   }
 
-  span {
+  .arrow {
     font-size: 2rem;
   }
 `;

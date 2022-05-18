@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { FaDiscourse } from 'react-icons/fa';
-import styles from '../styles/styles';
+import styles from '../../styles/styles';
 
 const Header: React.FC = () => {
   return (
     <Wrapper>
-      <p>Controllify</p>
+      <p className='title'>Controllify</p>
       <FaDiscourse style={{ color: '#343E47' }} size={'2.2rem'} />
     </Wrapper>
   );
@@ -21,11 +21,11 @@ const Wrapper = styled.header`
   gap: 0.5rem;
   background-color: #ffffff;
   text-align: center;
-  box-shadow: ${styles.boxShadow};
+  box-shadow: ${styles.effects.boxShadow};
 
-  p {
+  .title {
     padding: 2rem 0;
-    color: ${styles.textColor};
+    color: ${styles.colors.colorGrayLight};
     letter-spacing: 2px;
     font-size: 2rem;
     font-weight: bold;

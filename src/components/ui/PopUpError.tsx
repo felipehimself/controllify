@@ -1,12 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { fireError } from '../features/errorSlice';
+import { fireError } from '../../features/errorSlice';
 import styled from 'styled-components';
-import styles from '../styles/styles';
-import {IError} from './../interfaces/interfaces'
+import styles from '../../styles/styles';
+import { IError } from '../../interfaces/interfaces';
 
-// NECESSÁRIO INCLUIR TRANSIÇÃO NO CSS DO ERROR CONTAINER
-
-const ErrorMsg: React.FC<IError> = ({ msg, value }) => {
+const PopUpError: React.FC<IError> = ({ msg, value }) => {
   const dispatch = useDispatch();
   return (
     <Wrapper>
@@ -29,7 +27,7 @@ const Wrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: ${styles.bgModal};
+  background-color: ${styles.effects.overlay};
   height: 100vh;
   width: 100vw;
   z-index: 100;
@@ -43,12 +41,11 @@ const Wrapper = styled.div`
     transform: translate(-50%, -50%);
     transition: all 0.3s ease;
     border-radius: 0.4rem;
-
   }
 
   .error-msg {
     font-size: 1.5rem;
-    color: ${styles.textColor};
+    color: ${styles.colors.colorGrayLight};
     text-align: center;
   }
 
@@ -56,16 +53,15 @@ const Wrapper = styled.div`
     display: block;
     margin: 2rem auto 0 auto;
     border: none;
-    background-color: ${styles.btnColor};
+    background-color: ${styles.colors.colorPurple};
     color: #fff;
     padding: 1rem 2rem;
     cursor: pointer;
     border-radius: 0.4rem;
-
 
     &:active {
       transform: translateY(2px);
     }
   }
 `;
-export default ErrorMsg;
+export default PopUpError;

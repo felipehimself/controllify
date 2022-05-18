@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import styles from '../styles/styles';
-import { fireConfirm } from '../features/confirmSlice';
-import { removeEmpresa } from '../features/dataSlice';
+import styles from '../../styles/styles';
+import { fireConfirm } from '../../features/confirmSlice';
+import { removeEmpresa } from '../../features/dataSlice';
 import { useDispatch } from 'react-redux';
-import { IConfirm } from './../interfaces/interfaces';
+import { IConfirm } from '../../interfaces/interfaces';
 
-const ConfirmMsg: React.FC<IConfirm> = ({ id, msg }) => {
+const ConfirmModal: React.FC<IConfirm> = ({ id, msg }) => {
   const dispatch = useDispatch();
 
   const deleteItem = () => {
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: ${styles.bgModal};
+  background-color: ${styles.effects.overlay};
   height: 100vh;
   width: 100vw;
   z-index: 100;
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
 
   .confirm-msg {
     font-size: 1.5rem;
-    color: ${styles.textColor};
+    color: ${styles.colors.colorGrayLight};
     text-align: center;
   }
 
@@ -82,12 +82,12 @@ const Wrapper = styled.div`
     }
 
     &-confirm {
-      background-color: ${styles.btnColor};
+      background-color: ${styles.colors.colorPurple};
     }
 
     &-close {
-      background-color: ${styles.dangerColor};
+      background-color: ${styles.colors.colorDanger};
     }
   }
 `;
-export default ConfirmMsg;
+export default ConfirmModal;
