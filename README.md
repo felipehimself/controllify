@@ -1,6 +1,6 @@
 ## Controle de Cadastros
 
-- Trata-se de o desenvolvimento de um exemplo de sistema para que usuário possam cadastrar, editar e deletar uma empresa no banco de dados fictício.
+- Trata-se do desenvolvimento de um exemplo de sistema de cadastro, edição e exclusão de uma empresa/cliente no banco de dados.
 
 ## Sumário
 
@@ -56,7 +56,7 @@ npm install
 npm install -g json-server
 ```
 
-- Agora, com o **Json Server** instalado, utilize o seguinte comando, para rodar o servidor de teste:
+- Com o **Json Server** instalado, utilize o seguinte comando, para rodar o servidor de teste:
 
 ```
 json-server --watch db.json --port 3004
@@ -164,11 +164,11 @@ Em complemento à utilização do Redux Toolkit, foi necessária a utilização 
 
 ### Estilização
 
-Para realizar a estilizaÃ§Ã£o, foi utilizado o framework [**Styled Components**](https://styled-components.com/).
+Para realizar a estilização, foi utilizada a biblioteca [**Styled Components**](https://styled-components.com/).
 
 ### Tabela
 
-Para criação de uma tabela responsiva, foi utilizada a  biblioteca React Suite [**React Suite**](https://rsuitejs.com/components/table/)
+Para criação de uma tabela responsiva, foi utilizada a biblioteca React Suite [**React Suite**](https://rsuitejs.com/components/table/)
 
 
 ## Imagens <a name="imagens" ></a>
