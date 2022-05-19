@@ -1,25 +1,32 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import styled from 'styled-components';
+
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 import { Pagination } from 'rsuite';
-
 import 'rsuite-table/dist/css/rsuite-table.css';
 import 'rsuite/dist/rsuite.min.css';
 // import 'rsuite-table/lib/less/index.less'
 
-import styled from 'styled-components';
+import useFetch from '../../hooks/useFetch';
+
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
-import TableTitle from '../ui/TableTitle';
-import { useDispatch } from 'react-redux';
+
 import styles from '../../styles/styles';
+import Loading from '../ui/Loading';
 import ConfirmModal from './ConfirmModal';
+import TableTitle from '../ui/TableTitle';
 
 import { fireConfirm } from '../../features/confirmSlice';
-const TableEmpresas = () => {
-  const [loading, setLoading] = React.useState(false);
-  const [limit, setLimit] = React.useState(10);
-  const [page, setPage] = React.useState(1);
+import { fireError } from '../../features/errorSlice';
+
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+
+
+const TableEmpresas:React.FC = () => {
+  const [limit, setLimit] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
 
   const { dados } = useSelector((state: RootState) => state.dados);
   const confirmState = useSelector((state: RootState) => state.confirmState);
@@ -41,71 +48,77 @@ const TableEmpresas = () => {
     [dados, limit, page]
   );
 
+  const {isLoading, error} = useFetch()
+
+  if (isLoading) return <Loading />;
+
+  if (error){
+    dispatch(fireError({ value: true, msg: 'Ooops! Algo deu errado, tente novamente' }));
+  }
+
   return (
     <Wrapper>
       {confirmState.value && <ConfirmModal {...confirmState} />}
       <TableTitle path={'Empresas'} />
       <Table
         height={400}
-        loading={loading}
         data={data}
         onRowClick={(data) => {}}
         locale={{ emptyMessage: 'Sem dados para exibir' }}
       >
-        <Column width={200} fixed>
+        <Column flexGrow={1}  fixed>
           <HeaderCell>EMPRESA</HeaderCell>
           <Cell dataKey='razaoSocialOuNome' />
         </Column>
-        <Column width={180}>
+        <Column flexGrow={1} >
           <HeaderCell>CNPJ</HeaderCell>
           <Cell dataKey='cnpjOuCpf' />
         </Column>
-        <Column width={150}>
+        <Column flexGrow={1} >
           <HeaderCell>CIDADE</HeaderCell>
           <Cell dataKey='cidade' />
         </Column>
-        <Column width={80}>
+        <Column flexGrow={1} >
           <HeaderCell>UF</HeaderCell>
           <Cell dataKey='uf' />
         </Column>
-        <Column width={100}>
+        <Column flexGrow={1} >
           <HeaderCell>CEP</HeaderCell>
           <Cell dataKey='cep' />
         </Column>
-        <Column width={200}>
+        <Column flexGrow={1} >
           <HeaderCell>E-MAIL</HeaderCell>
           <Cell dataKey='email' />
         </Column>
-        <Column width={160}>
+        <Column flexGrow={1} >
           <HeaderCell>ABERTURA</HeaderCell>
           <Cell dataKey='abertura' />
         </Column>
-        <Column width={120} fixed='right'>
-          <HeaderCell>&nbsp;</HeaderCell>
+        <Column flexGrow={1}  >
+          <HeaderCell>Ações</HeaderCell>
           <Cell>
             {(rowData) => {
               return (
-                <div>
+                <div className='btns-container'>
                   <Link
                     to={`/empresas/editar/${rowData.id}`}
                     className='btn-edit'
                   >
-                    Editar
+                    <FaEdit title='Editar' size={12}/>
                   </Link>
-                  <span className='bar-placeholder'>|</span>
                   <button
                     className='btn-remove'
                     onClick={() =>
                       dispatch(
                         fireConfirm({
                           value: true,
-                          msg: 'Deseja mesmo prosseguir?',
+                          msg: 'Deseja prosseguir?',
                           id: rowData.id,
                         })
                       )
                     }
                   >
-                    Remover
+                    <FaTrashAlt title='Excluir' size={12}/>
                   </button>
                 </div>
               );
@@ -113,7 +126,7 @@ const TableEmpresas = () => {
           </Cell>
         </Column>
       </Table>
-      <div style={{ padding: 20 }}>
+      <div className='pagination-container' >
         <Pagination
           locale={{ total: '', limit: '10', skip: '' }}
           prev
@@ -141,6 +154,12 @@ const Wrapper = styled.div`
   margin: 9rem 5rem 0 10.8rem;
   font-size: 1.2rem;
 
+  .btns-container {
+    display:flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .btn-edit {
     color: #333;
     text-decoration: none;
@@ -166,9 +185,10 @@ const Wrapper = styled.div`
     }
   }
 
-  .bar-placeholder {
-    padding: 0 5px;
-    color: #333;
+  .pagination-container {
+    padding: 2rem;
   }
+
+
 `;
 export default TableEmpresas;

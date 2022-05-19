@@ -8,10 +8,12 @@ import Cadastrar from './pages/Cadastrar';
 import Editar from './pages/Editar';
 import GlobalStyles from './styles/globalStyles';
 
+
 const App: React.FC = () => {
+  
   return (
     <>
-    <GlobalStyles/>
+      <GlobalStyles />
       <Router>
         <Sidebar />
         <Header />

@@ -1,5 +1,5 @@
 import FormCadastrar from "../components/elements/FormCadastrar"
-const Cadastrar = () => {
+const Cadastrar:React.FC = () => {
   return (
     <FormCadastrar/>
   )

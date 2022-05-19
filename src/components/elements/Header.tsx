@@ -19,7 +19,7 @@ const Wrapper = styled.header`
   top: 0;
   width: 100%;
   gap: 0.5rem;
-  background-color: #ffffff;
+  background-color:  ${styles.colors.colorWhite};
   text-align: center;
   box-shadow: ${styles.effects.boxShadow};
 

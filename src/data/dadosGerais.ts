@@ -1,11 +1,8 @@
-import { IUF } from '../interfaces/interfaces';
+import { IUF, IPath } from '../interfaces/interfaces';
 
-export interface IData {
-  name: string;
-  path: string;
-}
 
-export const dadosInicio: IData[] = [
+
+export const dadosInicio: IPath[] = [
   { name: 'listar empresas', path: 'empresas' },
   { name: 'cadastrar empresa', path: 'cadastrar' },
 ];

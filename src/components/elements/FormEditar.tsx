@@ -2,20 +2,26 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeState } from '../../features/buttonsSlice';
 import { updateData } from '../../features/dataSlice';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import styles from '../../styles/styles';
 import { ufData } from '../../data/dadosGerais';
 import { RootState } from '../../store/store';
-import { IUserData } from '../../interfaces/interfaces';
-import { FaChevronLeft } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { ICompany } from '../../interfaces/interfaces';
 import PopUpError from '../ui/PopUpError';
 import { fireError } from '../../features/errorSlice';
+import { FaChevronLeft } from 'react-icons/fa';
+import axios from 'axios';
+import { BASE_URL } from './../../utils/utils';
 
-const FormEditar = () => {
-  const [empresa, setEmpresa] = useState<IUserData | any>({});
-  const [bkpEmpresa, setBkpEmpresa] = useState<IUserData | any>({});
+import Loading from './../ui/Loading';
+
+// falta metodo put
+
+const FormEditar:React.FC = () => {
+  const [empresa, setEmpresa] = useState<ICompany | any>({});
+  const [bkpEmpresa, setBkpEmpresa] = useState<ICompany | any>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
   const { dados } = useSelector((state: RootState) => state.dados);
@@ -27,7 +33,7 @@ const FormEditar = () => {
 
   useEffect(() => {
     dispatch(changeState(true));
-    const unicaEmpresa = dados.find((item) => item.id === id);
+    const unicaEmpresa = dados.find((item) => item.id === Number(id));
     setEmpresa(unicaEmpresa);
     setBkpEmpresa(unicaEmpresa);
   }, [id, dados, dispatch]);
@@ -44,10 +50,27 @@ const FormEditar = () => {
   };
 
   const handleSubmit = () => {
+    setIsLoading(true);
     if (Object.values(empresa).filter(Boolean).length === 13) {
-      dispatch(updateData({ id: empresa.id, data: empresa }));
-      setEmpresa({});
-      navigate('/empresas');
+      axios
+        .put(`${BASE_URL}/${id}`, empresa)
+        .then((response) => {
+          console.log(response);
+          dispatch(updateData({ id: empresa.id, data: empresa }));
+          setEmpresa({});
+          navigate('/empresas');
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          dispatch(
+            fireError({
+              value: true,
+              msg: 'Ooops! Algo deu errado, tente novamente',
+            })
+          );
+          setIsLoading(false);
+        });
     } else {
       dispatch(
         fireError({ value: true, msg: 'Necessário preencher todos os campos' })
@@ -55,27 +78,28 @@ const FormEditar = () => {
     }
   };
 
-  const handleCancelar = () => {
+  const handleCancel = () => {
     setEmpresa(bkpEmpresa);
     dispatch(changeState(true));
   };
 
   return (
     <Wrapper>
+      {isLoading && <Loading />}
       {errorState.value && <PopUpError {...errorState} />}
       <div className='title-container'>
         <div className='head-container'>
           <FaChevronLeft
             onClick={() => navigate(-1)}
             size={12}
-            style={{ color: '#fff', cursor: 'pointer' }}
+            style={{ color: 'styles.colors.colorWhite', cursor: 'pointer' }}
           />
           <h2 className='title-container__title'>Empresas / Editar</h2>
         </div>
         <div className='btn-container'>
           {!isDisable && (
             <button
-              onClick={handleCancelar}
+              onClick={handleCancel}
               className='btn btn-cancelar'
               disabled={isDisable}
             >
@@ -288,12 +312,12 @@ const FormEditar = () => {
 
 const Wrapper = styled.main`
   margin: 9rem 4rem 0 10.8rem;
-  background-color: #fff;
+  background-color: ${styles.colors.colorWhite};
   box-shadow: ${styles.effects.boxShadow};
 
   .title-container {
     background-color: ${styles.colors.colorGrayDark};
-    color: #fff;
+    color: ${styles.colors.colorWhite};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -379,7 +403,7 @@ const Wrapper = styled.main`
 
   .btn {
     padding: 0.5rem 2rem;
-    color: #fff;
+    color: ${styles.colors.colorWhite};
     background-color: #303341;
     border: none;
     cursor: pointer;

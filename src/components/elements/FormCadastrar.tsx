@@ -1,44 +1,59 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import styles from '../../styles/styles';
+import axios from 'axios';
+import { BASE_URL } from '../../utils/utils';
 import { ufData } from '../../data/dadosGerais';
-import { IUserData } from '../../interfaces/interfaces';
+import { ICompany } from '../../interfaces/interfaces';
 import { FaChevronLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { insertEmpresa } from '../../features/dataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { fireError } from '../../features/errorSlice';
-import { generateId } from '../../utils/utils';
 import PopUpError from '../ui/PopUpError';
+import Loading from '../ui/Loading';
 
 const FormCadastrar: React.FC = () => {
-  const [empresa, setEmpresa] = useState<IUserData | any>({});
+  const [empresa, setEmpresa] = useState<ICompany | any>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const errorState = useSelector((state: RootState) => state.errorState);
+
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
-    setEmpresa((prev: IUserData) => {
+    setEmpresa((prev: ICompany) => {
       return { ...prev, [name]: value };
     });
   };
 
   const handleSubmit = () => {
+    setIsLoading(true);
     if (Object.values(empresa).filter(Boolean).length === 12) {
-      setEmpresa((prev: any) => {
-        return { ...prev, id: generateId() };
-      });
-      dispatch(insertEmpresa(empresa));
-      setEmpresa({});
-      navigate('/empresas');
+      axios
+        .post(BASE_URL, empresa)
+        .then((response) => {
+          dispatch(insertEmpresa(response.data));
+          setEmpresa({});
+          navigate('/empresas');
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          dispatch(
+            fireError({
+              value: true,
+              msg: 'Ooops! Algo deu errado, tente novamente',
+            })
+          );
+          setIsLoading(false);
+        });
     } else {
       dispatch(
         fireError({ value: true, msg: 'Necessário preencher todos os campos' })
@@ -48,13 +63,14 @@ const FormCadastrar: React.FC = () => {
 
   return (
     <Wrapper>
+      {isLoading && <Loading />}
       {errorState.value && <PopUpError {...errorState} />}
       <div className='title-container'>
         <div className='head-container'>
           <FaChevronLeft
             onClick={() => navigate(-1)}
             size={12}
-            style={{ color: '#fff', cursor: 'pointer' }}
+            style={{ color: styles.colors.colorWhite, cursor: 'pointer' }}
           />
           <h2 className='title-container__title'>Cadastrar</h2>
         </div>
@@ -76,6 +92,7 @@ const FormCadastrar: React.FC = () => {
               onChange={handleChange}
               value={empresa?.tipoDeDoc ?? ''}
             >
+              <option>Selecionar</option>
               <option value='cpf'>CPF</option>
               <option value='cnpj'>CNPJ</option>
             </select>
@@ -247,7 +264,7 @@ const FormCadastrar: React.FC = () => {
 
 const Wrapper = styled.main`
   margin: 9rem 4rem 0 10.8rem;
-  background-color: #fff;
+  background-color: ${styles.colors.colorWhite};
   box-shadow: ${styles.effects.boxShadow};
 
   .form {
@@ -309,7 +326,7 @@ const Wrapper = styled.main`
 
   .title-container {
     background-color: ${styles.colors.colorGrayDark};
-    color: #fff;
+    color: ${styles.colors.colorWhite};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -333,7 +350,7 @@ const Wrapper = styled.main`
 
   .btn-salvar {
     padding: 0.5rem 2rem;
-    color: #fff;
+    color: ${styles.colors.colorWhite};
     background-color: #303341;
     border: none;
     cursor: pointer;

@@ -1,10 +1,10 @@
-export interface IUserData {
+export interface ICompany {
   cnpjOuCpf: string;
   cidade: string;
   uf: string;
   cep: string;
   abertura: string;
-  id: string;
+  id: number;
   rua: string;
   numero: number;
   complemento: string;
@@ -28,4 +28,13 @@ export interface IConfirm {
   value: boolean;
   msg: string | null | undefined;
   id: string;
+}
+
+export interface IPath {
+  name: string;
+  path: string;
+}
+
+export interface ITableTitle {
+  path?: string;
 }

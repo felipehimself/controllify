@@ -2,12 +2,10 @@ import { FaChevronLeft } from 'react-icons/fa';
 import styled from 'styled-components';
 import styles from '../../styles/styles';
 import { useNavigate } from 'react-router-dom';
+import {ITableTitle} from './../../interfaces/interfaces'
 
-interface IProps {
-  path?: string;
-}
 
-const TableTitle: React.FC<IProps> = ({ path }) => {
+const TableTitle: React.FC<ITableTitle> = ({ path }) => {
   const navigate = useNavigate();
 
   return (
@@ -16,18 +14,17 @@ const TableTitle: React.FC<IProps> = ({ path }) => {
         <FaChevronLeft
           onClick={() => navigate(-1)}
           size={12}
-          style={{ color: '#fff', cursor: 'pointer' }}
+          style={{ color: styles.colors.colorWhite, cursor: 'pointer' }}
         />
         <h2 className='title'>{path}</h2>
       </div>
-      
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   background-color: ${styles.colors.colorGrayDark};
-  color: #fff;
+  color:  ${styles.colors.colorWhite};
   display: flex;
   justify-content: space-between;
   align-items: center;

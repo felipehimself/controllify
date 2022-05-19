@@ -1,16 +1,29 @@
 import styled from 'styled-components';
 import styles from '../../styles/styles';
+
 import { fireConfirm } from '../../features/confirmSlice';
 import { removeEmpresa } from '../../features/dataSlice';
 import { useDispatch } from 'react-redux';
+
 import { IConfirm } from '../../interfaces/interfaces';
+
+import axios from 'axios';
+import { BASE_URL } from '../../utils/utils';
 
 const ConfirmModal: React.FC<IConfirm> = ({ id, msg }) => {
   const dispatch = useDispatch();
 
+  // colocar loading
   const deleteItem = () => {
-    dispatch(removeEmpresa({ id: id }));
-    dispatch(fireConfirm({ value: false, msg: '', id: '' }));
+    axios
+      .delete(`${BASE_URL}/${id}`)
+      .then((response) => {
+        dispatch(removeEmpresa({ id: id }));
+        dispatch(fireConfirm({ value: false, msg: '', id: '' }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -49,7 +62,7 @@ const Wrapper = styled.div`
   .confirm-container {
     position: absolute;
     padding: 3rem 5rem;
-    background-color: #fff;
+    background-color: ${styles.colors.colorWhite};
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -71,12 +84,12 @@ const Wrapper = styled.div`
   .btn {
     margin: 2rem auto 0 auto;
     border: none;
-    color: #fff;
+    color: ${styles.colors.colorWhite};
     border-radius: 0.4rem;
     width: 8rem;
     padding: 1rem 0;
     cursor: pointer;
-    
+
     &:active {
       transform: translateY(2px);
     }

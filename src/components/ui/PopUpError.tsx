@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   .error-container {
     position: absolute;
     padding: 3rem 5rem;
-    background-color: #fff;
+    background-color: ${styles.colors.colorWhite};
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -54,7 +54,7 @@ const Wrapper = styled.div`
     margin: 2rem auto 0 auto;
     border: none;
     background-color: ${styles.colors.colorPurple};
-    color: #fff;
+    color:  ${styles.colors.colorWhite};
     padding: 1rem 2rem;
     cursor: pointer;
     border-radius: 0.4rem;

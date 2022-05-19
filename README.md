@@ -1,46 +1,168 @@
-# Getting Started with Create React App
+## Controle de Cadastros
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Trata-se de o desenvolvimento de um exemplo de sistema para que usuário possam cadastrar, editar e deletar uma empresa no banco de dados fictício.
 
-## Available Scripts
+## Sumário
 
-In the project directory, you can run:
+- [Tecnologias utilizadas](#tecnologias)
+- [Instruções para rodar o projeto](#instrucoes)
+- [Organização e estruturação do projeto](#organizacao)
+- [Desenvolvimento](#desenvolvimento)
+- [Imagens](#imagens)
 
-### `npm start`
+## Tecnologias Utilizadas <a name="tecnologias"></a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [**React**](https://pt-br.reactjs.org/)
+- [**React Hooks**](https://pt-br.reactjs.org/docs/hooks-intro.html)
+- [**React Router Dom**](https://www.npmjs.com/package/react-router-dom)
+- [**Styled Components**](https://styled-components.com/)
+- [**React Icons**](https://react-icons.github.io/react-icons/)
+- [**Axios**](https://axios-http.com/docs/intro)
+- [**React Redux**](https://react-redux.js.org/)
+- [**Redux Tookit**](https://redux-toolkit.js.org/)
+- [**React Suite**](https://rsuitejs.com/)
+- [**Json Server**](https://www.npmjs.com/package/json-server)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Instruções para rodar o projeto <a name="instrucoes"></a>
 
-### `npm test`
+### Será necessário ter instalado na sua máquina:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+Git
+React
+```
 
-### `npm run build`
+- Clone o repositório com o comando **git clone**:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+git clone https://github.com/felipehimself/controllify.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Entre no diretório que acabou de ser criado:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+cd controllify
+```
 
-### `npm run eject`
+- Para o projeto funcionar na sua máquina, será necessário instalar suas dependências, para isso, utilize o comando **npm install**:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Para rodar o servidor de teste será necessário, também, instalar o **Json Server**, para isso, utilize o seguinte comando:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+npm install -g json-server
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Agora, com o **Json Server** instalado, utilize o seguinte comando, para rodar o servidor de teste:
 
-## Learn More
+```
+json-server --watch db.json --port 3004
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> Atenção: este comando deve ser executado na raiz do projeto.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Pronto, agora o projeto está pronto para ser rodado localmente, utilizando o comando **npm start**:
+
+```
+npm start
+```
+
+## Organização e estruturação do projeto <a name="organizacao"></a>
+
+O projeto está estruturado da seguinte forma:
+
+```
+│   .gitignore
+│   db.json
+│   package-lock.json
+│   package.json
+│   README.md
+│   tsconfig.json
+│
+├───public
+│       favicon.ico
+│       index.html
+│       manifest.json
+│       robots.txt
+│
+└───src
+    │   App.test.tsx
+    │   App.tsx
+    │   index.tsx
+    │   mock.ts
+    │   react-app-env.d.ts
+    │   reportWebVitals.ts
+    │   setupTests.ts
+    │
+    ├───assets
+    │       spinner.svg
+    │
+    ├───components
+    │   ├───elements
+    │   │       ConfirmModal.tsx
+    │   │       FormCadastrar.tsx
+    │   │       FormEditar.tsx
+    │   │       Header.tsx
+    │   │       Sidebar.tsx
+    │   │       TableEmpresas.tsx
+    │   │
+    │   └───ui
+    │           Card.tsx
+    │           Loading.tsx
+    │           PopUpError.tsx
+    │           TableTitle.tsx
+    │
+    ├───data
+    │       dadosGerais.ts
+    │
+    ├───features
+    │       buttonsSlice.ts
+    │       confirmSlice.ts
+    │       dataSlice.ts
+    │       errorSlice.ts
+    │
+    ├───hooks
+    │       useFetch.tsx
+    │
+    ├───interfaces
+    │       interfaces.ts
+    │
+    ├───pages
+    │       Cadastrar.tsx
+    │       Editar.tsx
+    │       Empresas.tsx
+    │       Home.tsx
+    │
+    ├───store
+    │       store.ts
+    │
+    ├───styles
+    │       globalStyles.tsx
+    │       styles.ts
+    │
+    └───utils
+            utils.ts    
+```
+
+## Desenvolvimento <a name="desenvolvimento" ></a>
+
+### HTTP Requests
+
+Para realizar chamadas HTTP no banco de dados fictício, foi utilizado o client HTTP [**Axios**](https://axios-http.com/docs/intro).
+
+### Estilização
+
+Para realizar a estilizaÃ§Ã£o, foi utilizado o framework [**Styled Components**](https://styled-components.com/).
+
+### Tabela
+
+Para utilização de uma tabela responsiva foi utilizada a  biblioteca React Suite [**React Suite**](https://rsuitejs.com/components/table/)
+
+
+## Imagens <a name="imagens" ></a>
+
+<img src='./src/assets/home.PNG' alt='home' width="500" /> 
+

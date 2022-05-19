@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import styles from '../../styles/styles';
-import { IData } from '../../data/dadosGerais';
+import { IPath } from '../../interfaces/interfaces';
 
-const Card: React.FC<IData> = ({ name, path }) => {
+const Card: React.FC<IPath> = ({ name, path }) => {
   return (
     <Wrapper>
       <Link to={`/${path}`}>
@@ -17,7 +17,7 @@ const Card: React.FC<IData> = ({ name, path }) => {
 const Wrapper = styled.div`
   min-width: 20rem;
   border-radius: 0.4rem;
-  background-color: #ffffff;
+  background-color: ${styles.colors.colorWhite};
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26);
   cursor: pointer;
 

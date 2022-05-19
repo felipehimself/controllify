@@ -15,29 +15,32 @@ const Sidebar: React.FC = () => {
           isActive ? 'home menu-icon-label--active' : 'menu-icon-label--active'
         }
       >
-        <FaHome style={{ color: '#fff' }} size={'2.2rem'} />
+        <FaHome style={{ color: styles.colors.colorWhite }} size={'2.2rem'} />
         <span className='menu-icon-label'>Home</span>
       </NavLink>
       <NavLink
-        className={
-          pathname.includes('empresas')
+        to='/empresas'
+        className={({ isActive }) =>
+          isActive
             ? 'empresas menu-icon-label--active'
             : 'menu-icon-label--active'
         }
-        to='/empresas'
       >
-        <FaCity style={{ color: '#fff' }} size={'2.2rem'} />
+        <FaCity style={{ color: styles.colors.colorWhite }} size={'2.2rem'} />
         <span className='menu-icon-label'>Empresas</span>
       </NavLink>
       <NavLink
-        className={
-          pathname.includes('cadastrar')
+        to='/cadastrar'
+        className={({ isActive }) =>
+          isActive
             ? 'cadastrar menu-icon-label--active'
             : 'menu-icon-label--active'
         }
-        to='/cadastrar'
       >
-        <FaRegListAlt style={{ color: '#fff' }} size={'2.2rem'} />
+        <FaRegListAlt
+          style={{ color: styles.colors.colorWhite }}
+          size={'2.2rem'}
+        />
         <span className='menu-icon-label'>Cadastrar</span>
       </NavLink>
     </Wrapper>
@@ -80,24 +83,27 @@ const Wrapper = styled.nav`
     border-left: 2px solid ${styles.colors.colorPurpleLight};
   }
 
-  .menu-icon-label--active {
-    position: relative;
-  }
-
   .menu-icon-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     left: 60px;
     top: 50%;
     transform: translateY(-50%);
-    color: #fff;
+    color: ${styles.colors.colorWhite};
     background-color: ${styles.colors.colorGrayDark};
     box-shadow: ${styles.effects.boxShadow};
-    padding: 1rem 0;
     border-radius: 3px;
     opacity: 0;
     visibility: hidden;
     transition: all 0.2s ease-in-out;
     width: 0;
+    height: 6.6rem;
+  }
+
+  .menu-icon-label--active {
+    position: relative;
   }
 
   .menu-icon-label--active:hover .menu-icon-label {
