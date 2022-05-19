@@ -157,13 +157,18 @@ Para realizar chamadas HTTP no banco de dados fictício, foi utilizado o client 
 
 Para criação das rotas que servirão as páginas foi utilizado o package React Router Dom  [**React Router Dom**](https://v5.reactrouter.com/web/guides/quick-start).
 
+### Controle de estado
+
+Para controle de estados foi utilizado o package Redux toolkit  [**Redux Toolkit**](https://redux-toolkit.js.org/).
+Em complemento à utilização do Redux Toolkit, foi necessária a utilização do package [**React Redux**](https://react-redux.js.org/)
+
 ### Estilização
 
 Para realizar a estilizaÃ§Ã£o, foi utilizado o framework [**Styled Components**](https://styled-components.com/).
 
 ### Tabela
 
-Para utilização de uma tabela responsiva foi utilizada a  biblioteca React Suite [**React Suite**](https://rsuitejs.com/components/table/)
+Para criação de uma tabela responsiva, foi utilizada a  biblioteca React Suite [**React Suite**](https://rsuitejs.com/components/table/)
 
 
 ## Imagens <a name="imagens" ></a>
@@ -174,5 +179,7 @@ Para utilização de uma tabela responsiva foi utilizada a  biblioteca React Sui
 <img src='./src/assets/empresas.PNG' alt='página empresas' width="500" /> 
 
 <img src='./src/assets/cadastrar.PNG' alt='página cadastrar' width="500" /> 
+
+<img src='./src/assets/editar.PNG' alt='página editar' width="500" /> 
 
 

@@ -112,7 +112,7 @@ const TableEmpresas:React.FC = () => {
                       dispatch(
                         fireConfirm({
                           value: true,
-                          msg: 'Deseja prosseguir?',
+                          msg: 'Deseja prosseguir com a exclusão?',
                           id: rowData.id,
                         })
                       )
