@@ -153,6 +153,10 @@ O projeto está estruturado da seguinte forma:
 
 Para realizar chamadas HTTP no banco de dados fictício, foi utilizado o client HTTP [**Axios**](https://axios-http.com/docs/intro).
 
+### Rotas
+
+Para criação das rotas que servirão as páginas foi utilizado o package React Router Dom  [**React Router Dom**](https://v5.reactrouter.com/web/guides/quick-start).
+
 ### Estilização
 
 Para realizar a estilizaÃ§Ã£o, foi utilizado o framework [**Styled Components**](https://styled-components.com/).
@@ -164,5 +168,11 @@ Para utilização de uma tabela responsiva foi utilizada a  biblioteca React Sui
 
 ## Imagens <a name="imagens" ></a>
 
+
 <img src='./src/assets/home.PNG' alt='home' width="500" /> 
+
+<img src='./src/assets/empresas.PNG' alt='página empresas' width="500" /> 
+
+<img src='./src/assets/cadastrar.PNG' alt='página cadastrar' width="500" /> 
+
 
