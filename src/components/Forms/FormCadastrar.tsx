@@ -11,8 +11,8 @@ import { insertEmpresa } from '../../features/dataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { fireError } from '../../features/errorSlice';
-import PopUpError from '../ui/PopUpError';
-import Loading from '../ui/Loading';
+import PopUpError from '../../shared/PopUpError';
+import Loading from '../Loading/Loading';
 
 const FormCadastrar: React.FC = () => {
   const [empresa, setEmpresa] = useState<ICompany | any>({});
@@ -58,6 +58,7 @@ const FormCadastrar: React.FC = () => {
       dispatch(
         fireError({ value: true, msg: 'Necessário preencher todos os campos' })
       );
+      setIsLoading(false);
     }
   };
 
@@ -412,5 +413,6 @@ const Wrapper = styled.main`
       }
     }
   }
+  
 `;
 export default FormCadastrar;

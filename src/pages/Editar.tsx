@@ -1,4 +1,4 @@
-import FormEditar from "../components/elements/FormEditar"
+import FormEditar from "./../components/Forms/FormEditar"
 const Editar:React.FC = () => {
   return (
     <FormEditar/>

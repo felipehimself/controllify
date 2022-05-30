@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { fireError } from '../../features/errorSlice';
+import { fireError } from '../features/errorSlice';
 import styled from 'styled-components';
-import styles from '../../styles/styles';
-import { IError } from '../../interfaces/interfaces';
+import styles from '../styles/styles';
+import { IError } from '../interfaces/interfaces';
 
 const PopUpError: React.FC<IError> = ({ msg, value }) => {
   const dispatch = useDispatch();

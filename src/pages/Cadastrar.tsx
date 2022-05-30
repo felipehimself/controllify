@@ -1,4 +1,5 @@
-import FormCadastrar from "../components/elements/FormCadastrar"
+import FormCadastrar from './../components/Forms/FormCadastrar'
+
 const Cadastrar:React.FC = () => {
   return (
     <FormCadastrar/>

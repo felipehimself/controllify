@@ -14,9 +14,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 
 import styles from '../../styles/styles';
-import Loading from '../ui/Loading';
-import ConfirmModal from './ConfirmModal';
-import TableTitle from '../ui/TableTitle';
+import Loading from '../Loading/Loading';
+import ConfirmModal from '../Modal/ConfirmModal';
+import TableTitle from '../../shared/TableTitle';
 
 import { fireConfirm } from '../../features/confirmSlice';
 import { fireError } from '../../features/errorSlice';

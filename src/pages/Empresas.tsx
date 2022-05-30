@@ -1,4 +1,4 @@
-import TableEmpresas from '../components/elements/TableEmpresas';
+import TableEmpresas from '../components/Table/TableEmpresas';
 
 const Empresas:React.FC = () => {
   return <TableEmpresas />;

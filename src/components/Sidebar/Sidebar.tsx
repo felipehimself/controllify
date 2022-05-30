@@ -2,11 +2,8 @@ import styled from 'styled-components';
 import styles from '../../styles/styles';
 import { FaHome, FaCity, FaRegListAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
-  const { pathname } = useLocation();
-
   return (
     <Wrapper>
       <NavLink

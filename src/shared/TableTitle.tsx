@@ -1,8 +1,8 @@
 import { FaChevronLeft } from 'react-icons/fa';
 import styled from 'styled-components';
-import styles from '../../styles/styles';
+import styles from '../styles/styles';
 import { useNavigate } from 'react-router-dom';
-import {ITableTitle} from './../../interfaces/interfaces'
+import {ITableTitle} from '../interfaces/interfaces'
 
 
 const TableTitle: React.FC<ITableTitle> = ({ path }) => {

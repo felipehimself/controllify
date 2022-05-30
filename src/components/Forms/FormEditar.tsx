@@ -8,15 +8,13 @@ import styles from '../../styles/styles';
 import { ufData } from '../../data/dadosGerais';
 import { RootState } from '../../store/store';
 import { ICompany } from '../../interfaces/interfaces';
-import PopUpError from '../ui/PopUpError';
+import PopUpError from '../../shared/PopUpError';
 import { fireError } from '../../features/errorSlice';
 import { FaChevronLeft } from 'react-icons/fa';
 import axios from 'axios';
 import { BASE_URL } from './../../utils/utils';
 
-import Loading from './../ui/Loading';
-
-// falta metodo put
+import Loading from '../Loading/Loading';
 
 const FormEditar:React.FC = () => {
   const [empresa, setEmpresa] = useState<ICompany | any>({});
@@ -75,6 +73,7 @@ const FormEditar:React.FC = () => {
       dispatch(
         fireError({ value: true, msg: 'Necessário preencher todos os campos' })
       );
+      setIsLoading(false);
     }
   };
 

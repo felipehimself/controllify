@@ -98,22 +98,35 @@ O projeto está estruturado da seguinte forma:
     │   setupTests.ts
     │
     ├───assets
+    │       cadastrar.PNG
+    │       editar.PNG
+    │       empresas.PNG
+    │       excluir.PNG
+    │       home.PNG
     │       spinner.svg
     │
     ├───components
-    │   ├───elements
-    │   │       ConfirmModal.tsx
+    │   ├───Card
+    │   │       Card.tsx
+    │   │
+    │   ├───Forms
     │   │       FormCadastrar.tsx
     │   │       FormEditar.tsx
-    │   │       Header.tsx
-    │   │       Sidebar.tsx
-    │   │       TableEmpresas.tsx
     │   │
-    │   └───ui
-    │           Card.tsx
-    │           Loading.tsx
-    │           PopUpError.tsx
-    │           TableTitle.tsx
+    │   ├───Header
+    │   │       Header.tsx
+    │   │
+    │   ├───Loading
+    │   │       Loading.tsx
+    │   │
+    │   ├───Modal
+    │   │       ConfirmModal.tsx
+    │   │
+    │   ├───Sidebar
+    │   │       Sidebar.tsx
+    │   │
+    │   └───Table
+    │           TableEmpresas.tsx
     │
     ├───data
     │       dadosGerais.ts
@@ -136,6 +149,10 @@ O projeto está estruturado da seguinte forma:
     │       Empresas.tsx
     │       Home.tsx
     │
+    ├───shared
+    │       PopUpError.tsx
+    │       TableTitle.tsx
+    │
     ├───store
     │       store.ts
     │
@@ -144,7 +161,7 @@ O projeto está estruturado da seguinte forma:
     │       styles.ts
     │
     └───utils
-            utils.ts    
+            utils.ts   
 ```
 
 ## Desenvolvimento <a name="desenvolvimento" ></a>
@@ -182,4 +199,5 @@ Para criação de uma tabela responsiva, foi utilizada a biblioteca React Suite 
 
 <img src='./src/assets/editar.PNG' alt='página editar' width="500" /> 
 
+<img src='./src/assets/excluir.PNG' alt='página editar' width="500" /> 
 

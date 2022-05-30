@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import styles from '../styles/styles';
-import Card from '../components/ui/Card';
+import Card from '../components/Card/Card';
 import { dadosInicio } from '../data/dadosGerais';
 
 const Home: React.FC = () => {
